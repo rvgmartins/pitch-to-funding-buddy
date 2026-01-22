@@ -10,16 +10,31 @@ import {
   Sparkles,
   ArrowRight,
   File,
-  X
+  X,
+  Lock,
+  CreditCard,
+  Star,
+  TrendingUp,
+  Target,
+  Users
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
 const steps = [
   { id: 1, title: "Upload", description: "Carregar pitch deck" },
-  { id: 2, title: "Análise", description: "IA a analisar" },
-  { id: 3, title: "Revisão", description: "Confirmar dados" },
-  { id: 4, title: "Publicar", description: "Ativar procura" },
+  { id: 2, title: "Análise & Scoring", description: "IA a analisar" },
+  { id: 3, title: "Revisão", description: "Ver resultados" },
+  { id: 4, title: "Pagamento", description: "Desbloquear acesso" },
+];
+
+const analysisResults = [
+  { label: "Problema", value: "Claramente definido com dados de mercado", score: 85, locked: false },
+  { label: "Solução", value: "Inovadora e diferenciada", score: 78, locked: false },
+  { label: "Mercado", value: "TAM: €15B, SAM: €2B, SOM: €200M", score: 82, locked: true },
+  { label: "Modelo de Negócio", value: "SaaS B2B com unit economics sólidos", score: 88, locked: true },
+  { label: "Equipa", value: "Experiência relevante no setor", score: 75, locked: true },
+  { label: "Tração", value: "€15K MRR, 45 clientes, 25% crescimento", score: 80, locked: true },
 ];
 
 export default function UploadPitch() {
@@ -28,6 +43,7 @@ export default function UploadPitch() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisProgress, setAnalysisProgress] = useState(0);
+  const [overallScore, setOverallScore] = useState(0);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -67,6 +83,7 @@ export default function UploadPitch() {
       if (progress >= 100) {
         clearInterval(interval);
         setIsAnalyzing(false);
+        setOverallScore(81);
         setCurrentStep(3);
       }
     }, 500);
@@ -76,6 +93,13 @@ export default function UploadPitch() {
     setUploadedFile(null);
     setCurrentStep(1);
     setAnalysisProgress(0);
+    setOverallScore(0);
+  };
+
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return "text-success";
+    if (score >= 60) return "text-warning";
+    return "text-destructive";
   };
 
   return (
@@ -126,11 +150,14 @@ export default function UploadPitch() {
         <Card className="shadow-card lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Upload className="h-5 w-5 text-primary" />
+              {currentStep === 1 && <Upload className="h-5 w-5 text-primary" />}
+              {currentStep === 2 && <Sparkles className="h-5 w-5 text-primary" />}
+              {currentStep === 3 && <Star className="h-5 w-5 text-primary" />}
+              {currentStep === 4 && <CreditCard className="h-5 w-5 text-primary" />}
               {currentStep === 1 && "Carregar Pitch Deck"}
-              {currentStep === 2 && "A analisar o seu pitch..."}
-              {currentStep === 3 && "Análise concluída"}
-              {currentStep === 4 && "Pronto para publicar"}
+              {currentStep === 2 && "A analisar e pontuar o seu pitch..."}
+              {currentStep === 3 && "Resultados da Análise"}
+              {currentStep === 4 && "Desbloquear Acesso Completo"}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -205,9 +232,9 @@ export default function UploadPitch() {
                   <Loader2 className="h-10 w-10 animate-spin text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">A analisar o seu pitch...</h3>
+                  <h3 className="text-lg font-semibold">A analisar e pontuar o seu pitch...</h3>
                   <p className="text-sm text-muted-foreground">
-                    A nossa IA está a extrair informações do seu pitch deck
+                    A nossa IA está a extrair informações e calcular o score do seu pitch
                   </p>
                 </div>
                 <div className="mx-auto max-w-md space-y-2">
@@ -219,35 +246,131 @@ export default function UploadPitch() {
 
             {currentStep === 3 && (
               <div className="space-y-6">
-                <div className="flex items-center gap-3 rounded-lg bg-success/10 p-4 text-success">
-                  <CheckCircle2 className="h-5 w-5" />
-                  <p className="font-medium">Análise concluída com sucesso!</p>
+                {/* Overall Score */}
+                <div className="flex items-center justify-between rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 p-6">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Score Global</p>
+                    <p className="text-4xl font-bold text-primary">{overallScore}/100</p>
+                    <p className="text-sm text-muted-foreground">Acima da média do setor</p>
+                  </div>
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/20">
+                    <Star className="h-10 w-10 text-primary" />
+                  </div>
                 </div>
-                <p className="text-muted-foreground">
-                  Reveja os dados extraídos na página de perfil da startup e faça ajustes se necessário.
-                </p>
-                <Button className="btn-gold" size="lg" onClick={() => setCurrentStep(4)}>
-                  Continuar para Revisão
+
+                {/* Analysis Results */}
+                <div className="space-y-3">
+                  {analysisResults.map((result, index) => (
+                    <div
+                      key={index}
+                      className={cn(
+                        "flex items-center justify-between rounded-lg border p-4 transition-all",
+                        result.locked ? "bg-muted/30" : "bg-card"
+                      )}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="stat-icon !p-2">
+                          {index === 0 && <Target className="h-4 w-4 text-primary" />}
+                          {index === 1 && <Sparkles className="h-4 w-4 text-primary" />}
+                          {index === 2 && <TrendingUp className="h-4 w-4 text-primary" />}
+                          {index === 3 && <CreditCard className="h-4 w-4 text-primary" />}
+                          {index === 4 && <Users className="h-4 w-4 text-primary" />}
+                          {index === 5 && <TrendingUp className="h-4 w-4 text-primary" />}
+                        </div>
+                        <div>
+                          <p className="font-medium">{result.label}</p>
+                          {result.locked ? (
+                            <p className="text-sm text-muted-foreground blur-sm select-none">
+                              {result.value}
+                            </p>
+                          ) : (
+                            <p className="text-sm text-muted-foreground">{result.value}</p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {result.locked ? (
+                          <div className="flex items-center gap-1 text-muted-foreground">
+                            <Lock className="h-4 w-4" />
+                            <span className="text-sm blur-sm select-none">{result.score}</span>
+                          </div>
+                        ) : (
+                          <span className={cn("text-lg font-bold", getScoreColor(result.score))}>
+                            {result.score}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-3 rounded-lg bg-primary/10 p-4">
+                  <Lock className="h-5 w-5 text-primary" />
+                  <div className="flex-1">
+                    <p className="font-medium">4 métricas bloqueadas</p>
+                    <p className="text-sm text-muted-foreground">
+                      Desbloqueie para ver a análise completa e encontrar investidores
+                    </p>
+                  </div>
+                </div>
+
+                <Button className="btn-gold w-full" size="lg" onClick={() => setCurrentStep(4)}>
+                  <CreditCard className="mr-2 h-4 w-4" />
+                  Desbloquear Acesso Completo
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             )}
 
             {currentStep === 4 && (
-              <div className="space-y-6 py-8 text-center">
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-success/10">
-                  <CheckCircle2 className="h-10 w-10 text-success" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">Tudo pronto!</h3>
-                  <p className="text-sm text-muted-foreground">
-                    O seu pitch está pronto para ser publicado e encontrar investidores
+              <div className="space-y-6">
+                <div className="rounded-xl border-2 border-primary bg-gradient-to-br from-primary/5 to-primary/10 p-6">
+                  <div className="mb-4 flex items-center justify-between">
+                    <h3 className="text-xl font-bold">Plano Pro</h3>
+                    <span className="rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
+                      Popular
+                    </span>
+                  </div>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold">€99</span>
+                    <span className="text-muted-foreground">/pitch</span>
+                  </div>
+                  <ul className="mb-6 space-y-3">
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-success" />
+                      Análise completa do pitch
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-success" />
+                      Todas as métricas desbloqueadas
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-success" />
+                      Matching com investidores
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-success" />
+                      Sugestões de melhoria com IA
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-success" />
+                      Suporte prioritário
+                    </li>
+                  </ul>
+                  <Button className="btn-gold w-full" size="lg">
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Pagar €99 e Desbloquear
+                  </Button>
+                  <p className="mt-3 text-center text-xs text-muted-foreground">
+                    Pagamento seguro via Stripe
                   </p>
                 </div>
-                <Button className="btn-gold" size="lg">
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  Publicar e Iniciar Procura
-                </Button>
+
+                <div className="text-center">
+                  <Button variant="ghost" onClick={() => setCurrentStep(3)}>
+                    ← Voltar aos resultados
+                  </Button>
+                </div>
               </div>
             )}
           </CardContent>
@@ -276,9 +399,9 @@ export default function UploadPitch() {
                   2
                 </div>
                 <div>
-                  <p className="font-medium">IA analisa o conteúdo</p>
+                  <p className="font-medium">IA analisa e pontua</p>
                   <p className="text-sm text-muted-foreground">
-                    Extraímos automaticamente informações chave
+                    Score automático baseado em critérios de investidores
                   </p>
                 </div>
               </div>
@@ -287,9 +410,9 @@ export default function UploadPitch() {
                   3
                 </div>
                 <div>
-                  <p className="font-medium">Reveja e ajuste</p>
+                  <p className="font-medium">Reveja os resultados</p>
                   <p className="text-sm text-muted-foreground">
-                    Confirme os dados extraídos e adicione mais detalhes
+                    Veja o score e prévia da análise gratuita
                   </p>
                 </div>
               </div>
@@ -298,9 +421,9 @@ export default function UploadPitch() {
                   4
                 </div>
                 <div>
-                  <p className="font-medium">Encontre investidores</p>
+                  <p className="font-medium">Desbloqueie e conecte</p>
                   <p className="text-sm text-muted-foreground">
-                    A nossa plataforma conecta-o aos investidores certos
+                    Pague para acesso total e matching com investidores
                   </p>
                 </div>
               </div>
@@ -309,11 +432,11 @@ export default function UploadPitch() {
 
           <Card className="shadow-card border-primary/20 bg-primary/5">
             <CardContent className="p-6">
-              <Sparkles className="mb-3 h-8 w-8 text-primary" />
-              <h3 className="mb-2 font-semibold">Análise com IA</h3>
+              <Star className="mb-3 h-8 w-8 text-primary" />
+              <h3 className="mb-2 font-semibold">Scoring com IA</h3>
               <p className="text-sm text-muted-foreground">
-                A nossa tecnologia de IA extrai automaticamente informações do seu pitch, 
-                como problema, solução, mercado, equipa e métricas financeiras.
+                O nosso algoritmo analisa o seu pitch baseado nos mesmos critérios 
+                que investidores de topo utilizam para avaliar startups.
               </p>
             </CardContent>
           </Card>
