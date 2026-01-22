@@ -1,0 +1,129 @@
+import { Link, useLocation } from "react-router-dom";
+import { 
+  LayoutDashboard, 
+  Upload, 
+  Building2, 
+  Settings, 
+  CreditCard,
+  LogOut,
+  ChevronDown,
+  Plus
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+const navigation = [
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Upload Pitch", href: "/upload", icon: Upload },
+  { name: "Perfil da Startup", href: "/profile", icon: Building2 },
+  { name: "Pagamentos", href: "/payments", icon: CreditCard },
+  { name: "Configurações", href: "/settings", icon: Settings },
+];
+
+interface SidebarProps {
+  currentStartup?: {
+    name: string;
+    pitchCount: number;
+  };
+}
+
+export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount: 3 } }: SidebarProps) {
+  const location = useLocation();
+
+  return (
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-sidebar">
+      <div className="flex h-full flex-col">
+        {/* Logo */}
+        <div className="flex h-16 items-center gap-2 px-6 border-b border-sidebar-border">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+            <span className="text-lg font-bold text-primary-foreground">K</span>
+          </div>
+          <span className="text-xl font-bold text-sidebar-foreground">Kloser</span>
+        </div>
+
+        {/* Startup Selector */}
+        <div className="p-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex w-full items-center gap-3 rounded-lg bg-sidebar-accent p-3 text-left transition-colors hover:bg-sidebar-accent/80">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/20">
+                  <Building2 className="h-5 w-5 text-primary" />
+                </div>
+                <div className="flex-1 overflow-hidden">
+                  <p className="truncate text-sm font-medium text-sidebar-foreground">
+                    {currentStartup.name}
+                  </p>
+                  <p className="text-xs text-sidebar-muted">
+                    {currentStartup.pitchCount} Pitches
+                  </p>
+                </div>
+                <ChevronDown className="h-4 w-4 text-sidebar-muted" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-56">
+              <DropdownMenuItem>
+                <Building2 className="mr-2 h-4 w-4" />
+                TechVenture AI
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Building2 className="mr-2 h-4 w-4" />
+                GreenTech Solutions
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-primary">
+                <Plus className="mr-2 h-4 w-4" />
+                Adicionar Startup
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 space-y-1 px-3">
+          {navigation.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                  isActive
+                    ? "bg-primary text-primary-foreground shadow-gold"
+                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Add Startup Button */}
+        <div className="p-4">
+          <Button className="w-full btn-gold" size="lg">
+            <Plus className="mr-2 h-4 w-4" />
+            Nova Startup
+          </Button>
+        </div>
+
+        {/* User / Logout */}
+        <div className="border-t border-sidebar-border p-4">
+          <Link
+            to="/login"
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+          >
+            <LogOut className="h-5 w-5" />
+            Sair
+          </Link>
+        </div>
+      </div>
+    </aside>
+  );
+}
