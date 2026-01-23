@@ -79,7 +79,7 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-  				'Montserrat',
+  				'Inter',
   				'ui-sans-serif',
   				'system-ui',
   				'-apple-system',
@@ -92,7 +92,7 @@ export default {
   				'sans-serif'
   			],
   			serif: [
-  				'Cormorant Garamond',
+  				'Lora',
   				'ui-serif',
   				'Georgia',
   				'Cambria',
@@ -101,7 +101,7 @@ export default {
   				'serif'
   			],
   			mono: [
-  				'IBM Plex Mono',
+  				'Space Mono',
   				'ui-monospace',
   				'SFMono-Regular',
   				'Menlo',
@@ -113,8 +113,8 @@ export default {
   			]
   		},
   		boxShadow: {
-  			'gold': '0 4px 14px 0 hsl(45 93% 47% / 0.25)',
-  			'card': '0 4px 6px -1px hsl(220 15% 10% / 0.1), 0 2px 4px -2px hsl(220 15% 10% / 0.1)',
+  			gold: '0 4px 14px 0 hsl(45 93% 47% / 0.25)',
+  			card: '0 4px 6px -1px hsl(220 15% 10% / 0.1), 0 2px 4px -2px hsl(220 15% 10% / 0.1)',
   			'card-hover': '0 10px 15px -3px hsl(220 15% 10% / 0.1), 0 4px 6px -4px hsl(220 15% 10% / 0.1)',
   			'2xs': 'var(--shadow-2xs)',
   			xs: 'var(--shadow-xs)',
