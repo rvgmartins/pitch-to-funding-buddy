@@ -22,19 +22,19 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
 const steps = [
-  { id: 1, title: "Upload", description: "Carregar pitch deck" },
-  { id: 2, title: "Análise & Scoring", description: "IA a analisar" },
-  { id: 3, title: "Revisão", description: "Ver resultados" },
-  { id: 4, title: "Pagamento", description: "Desbloquear acesso" },
+  { id: 1, title: "Upload", description: "Upload pitch deck" },
+  { id: 2, title: "Analysis & Scoring", description: "AI analyzing" },
+  { id: 3, title: "Review", description: "View results" },
+  { id: 4, title: "Payment", description: "Unlock access" },
 ];
 
 const analysisResults = [
-  { label: "Problema", value: "Claramente definido com dados de mercado", score: 85, locked: false },
-  { label: "Solução", value: "Inovadora e diferenciada", score: 78, locked: false },
-  { label: "Mercado", value: "TAM: €15B, SAM: €2B, SOM: €200M", score: 82, locked: true },
-  { label: "Modelo de Negócio", value: "SaaS B2B com unit economics sólidos", score: 88, locked: true },
-  { label: "Equipa", value: "Experiência relevante no setor", score: 75, locked: true },
-  { label: "Tração", value: "€15K MRR, 45 clientes, 25% crescimento", score: 80, locked: true },
+  { label: "Problem", value: "Clearly defined with market data", score: 85, locked: false },
+  { label: "Solution", value: "Innovative and differentiated", score: 78, locked: false },
+  { label: "Market", value: "TAM: €15B, SAM: €2B, SOM: €200M", score: 82, locked: true },
+  { label: "Business Model", value: "B2B SaaS with solid unit economics", score: 88, locked: true },
+  { label: "Team", value: "Relevant industry experience", score: 75, locked: true },
+  { label: "Traction", value: "€15K MRR, 45 customers, 25% growth", score: 80, locked: true },
 ];
 
 export default function UploadPitch() {
@@ -154,10 +154,10 @@ export default function UploadPitch() {
               {currentStep === 2 && <Sparkles className="h-5 w-5 text-primary" />}
               {currentStep === 3 && <Star className="h-5 w-5 text-primary" />}
               {currentStep === 4 && <CreditCard className="h-5 w-5 text-primary" />}
-              {currentStep === 1 && "Carregar Pitch Deck"}
-              {currentStep === 2 && "A analisar e pontuar o seu pitch..."}
-              {currentStep === 3 && "Resultados da Análise"}
-              {currentStep === 4 && "Desbloquear Acesso Completo"}
+              {currentStep === 1 && "Upload Pitch Deck"}
+              {currentStep === 2 && "Analyzing and scoring your pitch..."}
+              {currentStep === 3 && "Analysis Results"}
+              {currentStep === 4 && "Unlock Full Access"}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -177,10 +177,10 @@ export default function UploadPitch() {
                   <FileText className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">
-                  Arraste o seu pitch deck aqui
+                  Drag your pitch deck here
                 </h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  ou clique para selecionar um ficheiro
+                  or click to select a file
                 </p>
                 <input
                   type="file"
@@ -193,12 +193,12 @@ export default function UploadPitch() {
                   <Button className="btn-gold cursor-pointer" asChild>
                     <span>
                       <Upload className="mr-2 h-4 w-4" />
-                      Selecionar Ficheiro
+                      Select File
                     </span>
                   </Button>
                 </label>
                 <p className="mt-4 text-xs text-muted-foreground">
-                  Formatos suportados: PDF, PPTX (máx. 50MB)
+                  Supported formats: PDF, PPTX (max. 50MB)
                 </p>
               </div>
             )}
@@ -221,7 +221,7 @@ export default function UploadPitch() {
                 </div>
                 <Button className="btn-gold w-full" size="lg" onClick={startAnalysis}>
                   <Sparkles className="mr-2 h-4 w-4" />
-                  Iniciar Análise com IA
+                  Start AI Analysis
                 </Button>
               </div>
             )}
@@ -232,14 +232,14 @@ export default function UploadPitch() {
                   <Loader2 className="h-10 w-10 animate-spin text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">A analisar e pontuar o seu pitch...</h3>
+                  <h3 className="text-lg font-semibold">Analyzing and scoring your pitch...</h3>
                   <p className="text-sm text-muted-foreground">
-                    A nossa IA está a extrair informações e calcular o score do seu pitch
+                    Our AI is extracting information and calculating your pitch score
                   </p>
                 </div>
                 <div className="mx-auto max-w-md space-y-2">
                   <Progress value={analysisProgress} className="h-2" />
-                  <p className="text-sm text-muted-foreground">{analysisProgress}% concluído</p>
+                  <p className="text-sm text-muted-foreground">{analysisProgress}% complete</p>
                 </div>
               </div>
             )}
@@ -249,9 +249,9 @@ export default function UploadPitch() {
                 {/* Overall Score */}
                 <div className="flex items-center justify-between rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 p-6">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Score Global</p>
+                    <p className="text-sm font-medium text-muted-foreground">Overall Score</p>
                     <p className="text-4xl font-bold text-primary">{overallScore}/100</p>
-                    <p className="text-sm text-muted-foreground">Acima da média do setor</p>
+                    <p className="text-sm text-muted-foreground">Above industry average</p>
                   </div>
                   <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/20">
                     <Star className="h-10 w-10 text-primary" />
@@ -307,16 +307,16 @@ export default function UploadPitch() {
                 <div className="flex items-center gap-3 rounded-lg bg-primary/10 p-4">
                   <Lock className="h-5 w-5 text-primary" />
                   <div className="flex-1">
-                    <p className="font-medium">4 métricas bloqueadas</p>
+                    <p className="font-medium">4 metrics locked</p>
                     <p className="text-sm text-muted-foreground">
-                      Desbloqueie para ver a análise completa e encontrar investidores
+                      Unlock to see full analysis and find investors
                     </p>
                   </div>
                 </div>
 
                 <Button className="btn-gold w-full" size="lg" onClick={() => setCurrentStep(4)}>
                   <CreditCard className="mr-2 h-4 w-4" />
-                  Desbloquear Acesso Completo
+                  Unlock Full Access
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -326,7 +326,7 @@ export default function UploadPitch() {
               <div className="space-y-6">
                 <div className="rounded-xl border-2 border-primary bg-gradient-to-br from-primary/5 to-primary/10 p-6">
                   <div className="mb-4 flex items-center justify-between">
-                    <h3 className="text-xl font-bold">Plano Pro</h3>
+                    <h3 className="text-xl font-bold">Pro Plan</h3>
                     <span className="rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
                       Popular
                     </span>
@@ -338,37 +338,37 @@ export default function UploadPitch() {
                   <ul className="mb-6 space-y-3">
                     <li className="flex items-center gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-success" />
-                      Análise completa do pitch
+                      Complete pitch analysis
                     </li>
                     <li className="flex items-center gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-success" />
-                      Todas as métricas desbloqueadas
+                      All metrics unlocked
                     </li>
                     <li className="flex items-center gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-success" />
-                      Matching com investidores
+                      Investor matching
                     </li>
                     <li className="flex items-center gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-success" />
-                      Sugestões de melhoria com IA
+                      AI improvement suggestions
                     </li>
                     <li className="flex items-center gap-2 text-sm">
                       <CheckCircle2 className="h-4 w-4 text-success" />
-                      Suporte prioritário
+                      Priority support
                     </li>
                   </ul>
                   <Button className="btn-gold w-full" size="lg">
                     <CreditCard className="mr-2 h-4 w-4" />
-                    Pagar €99 e Desbloquear
+                    Pay €99 and Unlock
                   </Button>
                   <p className="mt-3 text-center text-xs text-muted-foreground">
-                    Pagamento seguro via Stripe
+                    Secure payment via Stripe
                   </p>
                 </div>
 
                 <div className="text-center">
                   <Button variant="ghost" onClick={() => setCurrentStep(3)}>
-                    ← Voltar aos resultados
+                    ← Back to results
                   </Button>
                 </div>
               </div>
@@ -380,7 +380,7 @@ export default function UploadPitch() {
         <div className="space-y-6">
           <Card className="shadow-card">
             <CardHeader>
-              <CardTitle className="text-base">Como funciona?</CardTitle>
+              <CardTitle className="text-base">How does it work?</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-3">
@@ -388,9 +388,9 @@ export default function UploadPitch() {
                   1
                 </div>
                 <div>
-                  <p className="font-medium">Faça upload do pitch</p>
+                  <p className="font-medium">Upload your pitch</p>
                   <p className="text-sm text-muted-foreground">
-                    PDF ou PPTX com a apresentação da sua startup
+                    PDF or PPTX with your startup presentation
                   </p>
                 </div>
               </div>
@@ -399,9 +399,9 @@ export default function UploadPitch() {
                   2
                 </div>
                 <div>
-                  <p className="font-medium">IA analisa e pontua</p>
+                  <p className="font-medium">AI analyzes and scores</p>
                   <p className="text-sm text-muted-foreground">
-                    Score automático baseado em critérios de investidores
+                    Automatic score based on investor criteria
                   </p>
                 </div>
               </div>
@@ -410,9 +410,9 @@ export default function UploadPitch() {
                   3
                 </div>
                 <div>
-                  <p className="font-medium">Reveja os resultados</p>
+                  <p className="font-medium">Review the results</p>
                   <p className="text-sm text-muted-foreground">
-                    Veja o score e prévia da análise gratuita
+                    See the score and free analysis preview
                   </p>
                 </div>
               </div>
@@ -421,9 +421,9 @@ export default function UploadPitch() {
                   4
                 </div>
                 <div>
-                  <p className="font-medium">Desbloqueie e conecte</p>
+                  <p className="font-medium">Pay to unlock</p>
                   <p className="text-sm text-muted-foreground">
-                    Pague para acesso total e matching com investidores
+                    Access complete analysis and investor matching
                   </p>
                 </div>
               </div>
@@ -432,11 +432,11 @@ export default function UploadPitch() {
 
           <Card className="shadow-card border-primary/20 bg-primary/5">
             <CardContent className="p-6">
-              <Star className="mb-3 h-8 w-8 text-primary" />
-              <h3 className="mb-2 font-semibold">Scoring com IA</h3>
+              <Sparkles className="mb-3 h-8 w-8 text-primary" />
+              <h3 className="mb-2 font-semibold">AI Analysis</h3>
               <p className="text-sm text-muted-foreground">
-                O nosso algoritmo analisa o seu pitch baseado nos mesmos critérios 
-                que investidores de topo utilizam para avaliar startups.
+                Our AI technology automatically extracts information from your pitch,
+                such as problem, solution, market, team, and financial metrics.
               </p>
             </CardContent>
           </Card>
