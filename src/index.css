@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Kloser Design System - Gold & Dark Theme */
+/* Kloser Design System - Blue & Dark Theme */
 
 @layer base {
   :root {
@@ -15,9 +15,9 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Gold/Amber primary color */
-    --primary: 45 93% 47%;
-    --primary-foreground: 0 0% 0%;
+    /* Blue primary color */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 220 14% 96%;
     --secondary-foreground: 222 47% 11%;
@@ -25,33 +25,33 @@
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
 
-    --accent: 45 93% 47%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 45 93% 47%;
+    --ring: 217 91% 60%;
 
     --radius: 0.75rem;
 
     /* Sidebar - Dark theme */
-    --sidebar-background: 220 20% 10%;
+    --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 45 93% 47%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 220 15% 18%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 18%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 220 15% 18%;
-    --sidebar-ring: 45 93% 47%;
-    --sidebar-muted: 220 10% 40%;
+    --sidebar-border: 222 40% 18%;
+    --sidebar-ring: 217 91% 60%;
+    --sidebar-muted: 220 10% 50%;
 
     /* Custom tokens */
-    --gold: 45 93% 47%;
-    --gold-light: 45 100% 92%;
-    --gold-dark: 45 80% 35%;
+    --brand: 217 91% 60%;
+    --brand-light: 217 100% 95%;
+    --brand-dark: 217 80% 45%;
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
@@ -61,46 +61,46 @@
     --shadow-sm: 0 1px 2px 0 hsl(220 15% 10% / 0.05);
     --shadow-md: 0 4px 6px -1px hsl(220 15% 10% / 0.1), 0 2px 4px -2px hsl(220 15% 10% / 0.1);
     --shadow-lg: 0 10px 15px -3px hsl(220 15% 10% / 0.1), 0 4px 6px -4px hsl(220 15% 10% / 0.1);
-    --shadow-gold: 0 4px 14px 0 hsl(45 93% 47% / 0.25);
+    --shadow-brand: 0 4px 14px 0 hsl(217 91% 60% / 0.25);
   }
 
   .dark {
-    --background: 220 20% 10%;
+    --background: 222 47% 11%;
     --foreground: 0 0% 98%;
 
-    --card: 220 15% 14%;
+    --card: 222 40% 14%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 220 15% 14%;
+    --popover: 222 40% 14%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 45 93% 47%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 18%;
+    --secondary: 222 40% 18%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 15% 18%;
+    --muted: 222 40% 18%;
     --muted-foreground: 220 10% 60%;
 
-    --accent: 220 15% 18%;
+    --accent: 222 40% 18%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 45 93% 47%;
+    --border: 222 40% 20%;
+    --input: 222 40% 20%;
+    --ring: 217 91% 60%;
 
-    --sidebar-background: 220 25% 8%;
+    --sidebar-background: 222 50% 8%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 45 93% 47%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 220 15% 15%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 220 15% 15%;
-    --sidebar-ring: 45 93% 47%;
+    --sidebar-border: 222 40% 15%;
+    --sidebar-ring: 217 91% 60%;
   }
 }
 
@@ -134,27 +134,27 @@
 }
 
 @layer components {
-  /* Gold gradient button */
+  /* Blue gradient button */
   .btn-gold {
     @apply bg-primary text-primary-foreground font-semibold;
-    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-dark)) 100%);
-    box-shadow: var(--shadow-gold);
+    background: linear-gradient(135deg, hsl(var(--brand)) 0%, hsl(var(--brand-dark)) 100%);
+    box-shadow: var(--shadow-brand);
   }
 
   .btn-gold:hover {
-    background: linear-gradient(135deg, hsl(45 93% 52%) 0%, hsl(var(--gold)) 100%);
+    background: linear-gradient(135deg, hsl(217 91% 65%) 0%, hsl(var(--brand)) 100%);
   }
 
-  /* Card with gold accent */
+  /* Card with brand accent */
   .card-gold {
     @apply bg-card rounded-lg;
     box-shadow: var(--shadow-md);
   }
 
-  /* Stat card with gold icon background */
+  /* Stat card with blue icon background */
   .stat-icon {
     @apply p-3 rounded-lg;
-    background: hsl(var(--gold-light));
+    background: hsl(var(--brand-light));
   }
 
   /* Sidebar active state */
@@ -162,28 +162,28 @@
     @apply bg-primary text-primary-foreground;
   }
 
-  /* Gold ring focus */
+  /* Brand ring focus */
   .focus-gold:focus-visible {
     @apply ring-2 ring-primary ring-offset-2;
   }
 }
 
 @layer utilities {
-  /* Gold text gradient */
+  /* Blue text gradient */
   .text-gold-gradient {
-    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-dark)) 100%);
+    background: linear-gradient(135deg, hsl(var(--brand)) 0%, hsl(var(--brand-dark)) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Gold border */
+  /* Brand border */
   .border-gold {
-    border-color: hsl(var(--gold));
+    border-color: hsl(var(--brand));
   }
 
   /* Glow effect */
   .glow-gold {
-    box-shadow: 0 0 20px hsl(var(--gold) / 0.3);
+    box-shadow: 0 0 20px hsl(var(--brand) / 0.3);
   }
 }

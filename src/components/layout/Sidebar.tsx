@@ -21,9 +21,9 @@ import {
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Upload Pitch", href: "/upload", icon: Upload },
-  { name: "Perfil da Startup", href: "/profile", icon: Building2 },
-  { name: "Pagamentos", href: "/payments", icon: CreditCard },
-  { name: "Configurações", href: "/settings", icon: Settings },
+  { name: "Startup Profile", href: "/profile", icon: Building2 },
+  { name: "Payments", href: "/payments", icon: CreditCard },
+  { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 interface SidebarProps {
@@ -77,7 +77,7 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
               </DropdownMenuItem>
               <DropdownMenuItem className="text-primary">
                 <Plus className="mr-2 h-4 w-4" />
-                Adicionar Startup
+                Add Startup
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -109,7 +109,7 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
         <div className="p-4">
           <Button className="w-full btn-gold" size="lg">
             <Plus className="mr-2 h-4 w-4" />
-            Nova Startup
+            New Startup
           </Button>
         </div>
 
@@ -120,7 +120,7 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
           >
             <LogOut className="h-5 w-5" />
-            Sair
+            Logout
           </Link>
         </div>
       </div>
