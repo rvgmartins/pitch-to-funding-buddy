@@ -33,7 +33,7 @@ const categories = [
 ];
 
 const stages = [
-  "Ideia",
+  "Idea",
   "MVP",
   "Early Revenue",
   "Growth",
@@ -42,24 +42,24 @@ const stages = [
 
 export default function StartupProfile() {
   return (
-    <DashboardLayout title="Perfil da Startup" breadcrumb="Configurações">
+    <DashboardLayout title="Startup Profile" breadcrumb="Settings">
       <div className="mx-auto max-w-4xl">
         <Accordion type="multiple" defaultValue={["details", "pitch"]} className="space-y-4">
           {/* Business Details */}
-          <AccordionItem value="details" className="rounded-lg border bg-card shadow-card">
+          <AccordionItem value="details" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
                 <div className="stat-icon">
                   <Building2 className="h-5 w-5 text-primary" />
                 </div>
-                <span className="text-lg font-semibold">Dados da Empresa</span>
+                <span className="text-lg font-semibold">Company Details</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Nome da Startup</Label>
-                  <Input id="name" placeholder="Ex: TechVenture AI" defaultValue="TechVenture AI" />
+                  <Label htmlFor="name">Startup Name</Label>
+                  <Input id="name" placeholder="e.g. TechVenture AI" defaultValue="TechVenture AI" />
                 </div>
 
                 <div className="space-y-2">
@@ -78,10 +78,10 @@ export default function StartupProfile() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="category">Categoria</Label>
+                  <Label htmlFor="category">Category</Label>
                   <Select defaultValue="ai">
                     <SelectTrigger>
-                      <SelectValue placeholder="Selecione uma categoria" />
+                      <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((cat) => (
@@ -94,10 +94,10 @@ export default function StartupProfile() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="stage">Fase</Label>
+                  <Label htmlFor="stage">Stage</Label>
                   <Select defaultValue="mvp">
                     <SelectTrigger>
-                      <SelectValue placeholder="Selecione a fase" />
+                      <SelectValue placeholder="Select stage" />
                     </SelectTrigger>
                     <SelectContent>
                       {stages.map((stage) => (
@@ -110,13 +110,13 @@ export default function StartupProfile() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email de Contacto</Label>
+                  <Label htmlFor="email">Contact Email</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="email"
                       type="email"
-                      placeholder="contacto@empresa.com"
+                      placeholder="contact@company.com"
                       className="pl-10"
                       defaultValue="hello@techventure.ai"
                     />
@@ -124,13 +124,13 @@ export default function StartupProfile() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Telefone</Label>
+                  <Label htmlFor="phone">Phone</Label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
                       id="phone"
                       type="tel"
-                      placeholder="+351 912 345 678"
+                      placeholder="+1 234 567 890"
                       className="pl-10"
                       defaultValue="+351 912 345 678"
                     />
@@ -138,24 +138,24 @@ export default function StartupProfile() {
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="short-description">Descrição Curta</Label>
+                  <Label htmlFor="short-description">Short Description</Label>
                   <Input
                     id="short-description"
-                    placeholder="Uma frase que descreve a sua startup"
-                    defaultValue="Plataforma de IA para automação de processos empresariais"
+                    placeholder="One sentence that describes your startup"
+                    defaultValue="AI platform for business process automation"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Esta descrição aparece nos resultados de pesquisa
+                    This description appears in search results
                   </p>
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="full-description">Descrição Completa</Label>
+                  <Label htmlFor="full-description">Full Description</Label>
                   <Textarea
                     id="full-description"
-                    placeholder="Descreva a sua startup em detalhe..."
+                    placeholder="Describe your startup in detail..."
                     rows={4}
-                    defaultValue="A TechVenture AI desenvolve soluções de inteligência artificial para automação de processos empresariais. A nossa plataforma permite que empresas automatizem tarefas repetitivas, reduzindo custos operacionais em até 60%."
+                    defaultValue="TechVenture AI develops artificial intelligence solutions for business process automation. Our platform enables companies to automate repetitive tasks, reducing operational costs by up to 60%."
                   />
                 </div>
               </div>
@@ -163,63 +163,63 @@ export default function StartupProfile() {
           </AccordionItem>
 
           {/* Pitch Information */}
-          <AccordionItem value="pitch" className="rounded-lg border bg-card shadow-card">
+          <AccordionItem value="pitch" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
                 <div className="stat-icon">
                   <Target className="h-5 w-5 text-primary" />
                 </div>
-                <span className="text-lg font-semibold">Informação do Pitch</span>
+                <span className="text-lg font-semibold">Pitch Information</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="problem">Problema</Label>
+                  <Label htmlFor="problem">Problem</Label>
                   <Textarea
                     id="problem"
-                    placeholder="Qual problema a sua startup resolve?"
+                    placeholder="What problem does your startup solve?"
                     rows={3}
-                    defaultValue="As empresas gastam milhares de horas por mês em tarefas repetitivas que poderiam ser automatizadas, resultando em custos elevados e erros humanos."
+                    defaultValue="Companies spend thousands of hours per month on repetitive tasks that could be automated, resulting in high costs and human errors."
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="solution">Solução</Label>
+                  <Label htmlFor="solution">Solution</Label>
                   <Textarea
                     id="solution"
-                    placeholder="Como a sua startup resolve este problema?"
+                    placeholder="How does your startup solve this problem?"
                     rows={3}
-                    defaultValue="A nossa plataforma de IA identifica automaticamente processos que podem ser automatizados e cria fluxos de trabalho inteligentes, sem necessidade de programação."
+                    defaultValue="Our AI platform automatically identifies processes that can be automated and creates intelligent workflows, without the need for programming."
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="market">Mercado</Label>
+                  <Label htmlFor="market">Market</Label>
                   <Textarea
                     id="market"
-                    placeholder="Descreva o seu mercado alvo"
+                    placeholder="Describe your target market"
                     rows={3}
-                    defaultValue="O mercado global de automação de processos empresariais vale €15B e cresce 25% ao ano. Focamo-nos em PMEs europeias com 50-500 funcionários."
+                    defaultValue="The global business process automation market is worth €15B and grows 25% annually. We focus on European SMEs with 50-500 employees."
                   />
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="funding">Investimento Pretendido</Label>
+                    <Label htmlFor="funding">Funding Requested</Label>
                     <Input
                       id="funding"
-                      placeholder="Ex: €500.000"
-                      defaultValue="€500.000"
+                      placeholder="e.g. €500,000"
+                      defaultValue="€500,000"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="use-of-funds">Uso do Investimento</Label>
+                    <Label htmlFor="use-of-funds">Use of Funds</Label>
                     <Input
                       id="use-of-funds"
-                      placeholder="Ex: Produto, Marketing, Equipa"
-                      defaultValue="40% Produto, 30% Marketing, 30% Equipa"
+                      placeholder="e.g. Product, Marketing, Team"
+                      defaultValue="40% Product, 30% Marketing, 30% Team"
                     />
                   </div>
                 </div>
@@ -228,44 +228,44 @@ export default function StartupProfile() {
           </AccordionItem>
 
           {/* Team */}
-          <AccordionItem value="team" className="rounded-lg border bg-card shadow-card">
+          <AccordionItem value="team" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
                 <div className="stat-icon">
                   <Users className="h-5 w-5 text-primary" />
                 </div>
-                <span className="text-lg font-semibold">Equipa</span>
+                <span className="text-lg font-semibold">Team</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Adicione informações sobre os fundadores e membros chave da equipa
+                  Add information about the founders and key team members
                 </p>
                 
                 <div className="grid gap-4 md:grid-cols-2">
-                  <Card className="border-dashed">
+                  <Card className="border-dashed rounded-md">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
                           JS
                         </div>
                         <div>
-                          <p className="font-medium">João Silva</p>
+                          <p className="font-medium">John Smith</p>
                           <p className="text-sm text-muted-foreground">CEO & Co-Founder</p>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-dashed">
+                  <Card className="border-dashed rounded-md">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
                           MC
                         </div>
                         <div>
-                          <p className="font-medium">Maria Costa</p>
+                          <p className="font-medium">Mary Collins</p>
                           <p className="text-sm text-muted-foreground">CTO & Co-Founder</p>
                         </div>
                       </div>
@@ -273,37 +273,37 @@ export default function StartupProfile() {
                   </Card>
                 </div>
 
-                <Button variant="outline" className="w-full border-dashed">
-                  + Adicionar Membro da Equipa
+                <Button variant="outline" className="w-full border-dashed rounded-md">
+                  + Add Team Member
                 </Button>
               </div>
             </AccordionContent>
           </AccordionItem>
 
           {/* Traction */}
-          <AccordionItem value="traction" className="rounded-lg border bg-card shadow-card">
+          <AccordionItem value="traction" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
                 <div className="stat-icon">
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
-                <span className="text-lg font-semibold">Métricas e Tração</span>
+                <span className="text-lg font-semibold">Metrics & Traction</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-6">
               <div className="grid gap-6 md:grid-cols-3">
                 <div className="space-y-2">
-                  <Label htmlFor="mrr">MRR (Receita Mensal)</Label>
-                  <Input id="mrr" placeholder="€0" defaultValue="€15.000" />
+                  <Label htmlFor="mrr">MRR (Monthly Revenue)</Label>
+                  <Input id="mrr" placeholder="€0" defaultValue="€15,000" />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="customers">Clientes</Label>
+                  <Label htmlFor="customers">Customers</Label>
                   <Input id="customers" placeholder="0" defaultValue="45" />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="growth">Crescimento Mensal</Label>
+                  <Label htmlFor="growth">Monthly Growth</Label>
                   <Input id="growth" placeholder="0%" defaultValue="25%" />
                 </div>
 
@@ -314,7 +314,7 @@ export default function StartupProfile() {
 
                 <div className="space-y-2">
                   <Label htmlFor="ltv">LTV</Label>
-                  <Input id="ltv" placeholder="€0" defaultValue="€2.400" />
+                  <Input id="ltv" placeholder="€0" defaultValue="€2,400" />
                 </div>
 
                 <div className="space-y-2">
@@ -330,7 +330,7 @@ export default function StartupProfile() {
         <div className="mt-6 flex justify-end">
           <Button className="btn-gold" size="lg">
             <Save className="mr-2 h-4 w-4" />
-            Guardar Alterações
+            Save Changes
           </Button>
         </div>
       </div>
