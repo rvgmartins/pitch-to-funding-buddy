@@ -27,6 +27,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+} from "@/components/ui/dialog";
 
 // Main flow steps
 const mainSteps = [
@@ -131,6 +136,8 @@ export default function UploadPitch() {
   const [mainStep, setMainStep] = useState(1);
   // Onboarding sub-step (1-4)
   const [onboardingStep, setOnboardingStep] = useState(1);
+  // Modal open state
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(true);
   
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -232,9 +239,9 @@ export default function UploadPitch() {
     return "text-red-600";
   };
 
-  // Render onboarding wizard (main step 1)
-  const renderOnboarding = () => (
-    <div className="flex min-h-[calc(100vh-12rem)] gap-0 overflow-hidden rounded-2xl">
+  // Render onboarding wizard content (for modal)
+  const renderOnboardingContent = () => (
+    <div className="flex max-h-[85vh] gap-0 overflow-hidden rounded-2xl shadow-2xl">
       {/* Left sidebar - Steps */}
       <div className="w-80 shrink-0 bg-[hsl(222,47%,11%)] p-8 text-white">
         <h1 className="mb-2 text-3xl font-bold">
@@ -780,7 +787,14 @@ export default function UploadPitch() {
     <DashboardLayout title="Startup Onboarding" breadcrumb="Onboarding">
       {/* Main Progress Steps - always visible */}
       {renderMainProgressStepper()}
-      {mainStep === 1 && renderOnboarding()}
+      
+      {/* Onboarding Modal with blur backdrop */}
+      <Dialog open={isOnboardingOpen && mainStep === 1} onOpenChange={setIsOnboardingOpen}>
+        <DialogContent className="max-w-4xl border-0 p-0 gap-0 overflow-hidden bg-transparent shadow-none [&>button]:hidden">
+          {renderOnboardingContent()}
+        </DialogContent>
+      </Dialog>
+
       {mainStep === 2 && renderAnalysis()}
       {mainStep === 3 && renderReview()}
       {mainStep === 4 && renderPayment()}
