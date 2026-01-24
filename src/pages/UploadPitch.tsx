@@ -241,28 +241,28 @@ export default function UploadPitch() {
 
   // Render onboarding wizard content (for modal)
   const renderOnboardingContent = () => (
-    <div className="flex max-h-[85vh] gap-0 overflow-hidden rounded-2xl shadow-2xl">
+    <div className="flex h-[600px] w-full overflow-hidden rounded-lg shadow-2xl">
       {/* Left sidebar - Steps */}
-      <div className="w-80 shrink-0 bg-[hsl(222,47%,11%)] p-8 text-white">
-        <h1 className="mb-2 text-3xl font-bold">
+      <div className="w-72 shrink-0 bg-[hsl(222,47%,11%)] p-6 text-white flex flex-col">
+        <h1 className="mb-1 text-2xl font-bold">
           {onboardingSteps.find(s => s.id === onboardingStep)?.title}
         </h1>
-        <p className="mb-8 text-gray-400">
+        <p className="mb-6 text-sm text-gray-400">
           Complete all the following steps {onboardingStep}/4
         </p>
 
-        <div className="space-y-2">
+        <div className="space-y-1">
           {onboardingSteps.map((step) => (
             <div
               key={step.id}
               className={cn(
-                "flex items-center gap-4 rounded-xl px-4 py-3 transition-all",
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all",
                 onboardingStep === step.id && "bg-white/10"
               )}
             >
               <div
                 className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all",
+                  "flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all text-sm",
                   onboardingStep > step.id
                     ? "border-white bg-transparent"
                     : onboardingStep === step.id
@@ -271,14 +271,14 @@ export default function UploadPitch() {
                 )}
               >
                 {onboardingStep > step.id ? (
-                  <Check className="h-5 w-5" />
+                  <Check className="h-4 w-4" />
                 ) : (
-                  <span className="text-sm font-semibold">{step.id}</span>
+                  <span className="font-semibold">{step.id}</span>
                 )}
               </div>
               <span
                 className={cn(
-                  "font-medium",
+                  "text-sm font-medium",
                   onboardingStep >= step.id ? "text-white" : "text-gray-600"
                 )}
               >
@@ -290,9 +290,9 @@ export default function UploadPitch() {
       </div>
 
       {/* Right content area */}
-      <div className="flex flex-1 flex-col bg-white p-8">
+      <div className="flex flex-1 flex-col bg-white p-6 overflow-y-auto">
         {/* Progress bar */}
-        <div className="mb-8 flex gap-2">
+        <div className="mb-6 flex gap-2">
           {onboardingSteps.map((step) => (
             <div
               key={step.id}
@@ -538,17 +538,17 @@ export default function UploadPitch() {
         </div>
 
         {/* Navigation buttons */}
-        <div className="mt-8 flex gap-4">
+        <div className="mt-6 flex gap-3 pt-4 border-t border-gray-100">
           <Button
             variant="outline"
-            className="flex-1 border-gray-200 py-6 text-base"
+            className="flex-1 rounded-lg h-12"
             onClick={goBackOnboarding}
             disabled={onboardingStep === 1}
           >
             Go back
           </Button>
           <Button
-            className="flex-1 bg-[hsl(222,47%,11%)] py-6 text-base hover:bg-[hsl(222,47%,15%)]"
+            className="flex-1 bg-[hsl(222,47%,11%)] rounded-lg h-12 hover:bg-[hsl(222,47%,15%)]"
             onClick={goNextOnboarding}
             disabled={!canContinueOnboarding()}
           >
@@ -790,7 +790,7 @@ export default function UploadPitch() {
       
       {/* Onboarding Modal with blur backdrop */}
       <Dialog open={isOnboardingOpen && mainStep === 1} onOpenChange={setIsOnboardingOpen}>
-        <DialogContent className="max-w-4xl border-0 p-0 gap-0 overflow-hidden bg-transparent shadow-none [&>button]:hidden">
+        <DialogContent className="max-w-[900px] w-full border-0 p-0 gap-0 overflow-visible bg-transparent shadow-none [&>button]:hidden">
           {renderOnboardingContent()}
         </DialogContent>
       </Dialog>
