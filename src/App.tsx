@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import UploadPitch from "./pages/UploadPitch";
+import Onboarding from "./pages/Onboarding";
 import StartupProfile from "./pages/StartupProfile";
 import NotFound from "./pages/NotFound";
 
@@ -21,7 +21,7 @@ const App = () => (
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/upload" element={<UploadPitch />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/profile" element={<StartupProfile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

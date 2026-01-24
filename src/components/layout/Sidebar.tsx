@@ -21,7 +21,7 @@ import kloserLogo from "@/assets/klogo.png";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Onboarding", href: "/upload", icon: Upload },
+  { name: "Onboarding", href: "/onboarding", icon: Upload },
   { name: "Startup Profile", href: "/profile", icon: Building2 },
   { name: "Payments", href: "/payments", icon: CreditCard },
   { name: "Settings", href: "/settings", icon: Settings },
