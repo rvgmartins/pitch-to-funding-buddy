@@ -200,7 +200,7 @@ export function FundraisingJourney() {
       </div>
 
       {/* Tool Stack Access */}
-      <Card className="shadow-card">
+      <Card className="shadow-card rounded-xl">
         <CardHeader>
           <CardTitle className="text-lg">Your Tool Stack Access</CardTitle>
           <div className="flex gap-6 pt-2">
