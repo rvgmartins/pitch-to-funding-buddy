@@ -143,7 +143,7 @@ export function FundraisingJourney() {
               <Card
                 key={phase.number}
                 className={cn(
-                  "min-w-[320px] flex-shrink-0 rounded-xl shadow-card transition-shadow hover:shadow-card-hover",
+                  "min-w-[320px] flex-shrink-0 rounded-md shadow-card transition-shadow hover:shadow-card-hover",
                   phase.locked && "opacity-75"
                 )}
               >
@@ -200,7 +200,7 @@ export function FundraisingJourney() {
       </div>
 
       {/* Tool Stack Access */}
-      <Card className="shadow-card">
+      <Card className="rounded-md shadow-card">
         <CardHeader>
           <CardTitle className="text-lg">Your Tool Stack Access</CardTitle>
           <div className="flex gap-6 pt-2">
@@ -220,7 +220,7 @@ export function FundraisingJourney() {
               <div
                 key={item.phase}
                 className={cn(
-                  "rounded-xl border p-4 transition-colors",
+                  "rounded-md border p-4 transition-colors",
                   item.locked
                     ? "border-border bg-muted/30"
                     : "border-primary/20 bg-primary/5"
