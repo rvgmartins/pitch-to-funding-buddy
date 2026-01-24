@@ -4,7 +4,7 @@ import { Eye, EyeOff, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import kloserLogoFull from "@/assets/kloser-logo-full.png";
+import kloserLogo from "@/assets/kloser-logo-new.png";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +22,7 @@ export default function Login() {
     <div className="min-h-screen bg-background bg-grid-pattern flex flex-col">
       {/* Header */}
       <header className="w-full px-6 py-4 flex items-center justify-between">
-        <img src={kloserLogoFull} alt="Kloser.ai" className="h-8" />
+        <img src={kloserLogo} alt="Kloser.ai" className="h-[4.5rem]" />
         <div className="flex items-center gap-3">
           <span className="text-sm text-muted-foreground">Don't have an account?</span>
           <Link to="/register">
