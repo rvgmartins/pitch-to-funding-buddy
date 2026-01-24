@@ -166,7 +166,7 @@ export function FundraisingJourney() {
                     <div
                       key={idx}
                       className={cn(
-                        "flex items-start gap-3 rounded-lg border p-3 transition-colors",
+                        "flex items-start gap-3 rounded-md border p-3 transition-colors",
                         step.completed
                           ? "border-primary/20 bg-primary/5"
                           : "border-border bg-background"
