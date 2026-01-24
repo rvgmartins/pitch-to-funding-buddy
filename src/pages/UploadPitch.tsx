@@ -241,7 +241,7 @@ export default function UploadPitch() {
 
   // Render onboarding wizard content (for modal)
   const renderOnboardingContent = () => (
-    <div className="flex h-[600px] w-full overflow-hidden rounded-lg shadow-2xl">
+    <div className="flex h-[80vh] max-h-[700px] w-full overflow-visible rounded-lg shadow-2xl">
       {/* Left sidebar - Steps */}
       <div className="w-72 shrink-0 bg-[hsl(222,47%,11%)] p-6 text-white flex flex-col">
         <h1 className="mb-1 text-2xl font-bold">
