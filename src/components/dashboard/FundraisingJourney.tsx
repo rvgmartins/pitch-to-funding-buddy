@@ -220,7 +220,7 @@ export function FundraisingJourney() {
               <div
                 key={item.phase}
                 className={cn(
-                  "rounded-lg border p-4 transition-colors",
+                  "rounded-xl border p-4 transition-colors",
                   item.locked
                     ? "border-border bg-muted/30"
                     : "border-primary/20 bg-primary/5"
