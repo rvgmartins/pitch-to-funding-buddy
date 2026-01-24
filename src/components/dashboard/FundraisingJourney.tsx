@@ -143,7 +143,7 @@ export function FundraisingJourney() {
               <Card
                 key={phase.number}
                 className={cn(
-                  "min-w-[320px] flex-shrink-0 shadow-card transition-shadow hover:shadow-card-hover",
+                  "min-w-[320px] flex-shrink-0 rounded-xl shadow-card transition-shadow hover:shadow-card-hover",
                   phase.locked && "opacity-75"
                 )}
               >
