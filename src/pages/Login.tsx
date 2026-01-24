@@ -42,7 +42,7 @@ export default function Login() {
               <Sparkles className="h-4 w-4" />
               AI-Powered Fundraising
             </div>
-            <h1 className="text-4xl font-bold tracking-tight">Welcome back</h1>
+            <!--h1 className="text-4xl font-bold tracking-tight">Welcome back</h1 -->
             <p className="text-muted-foreground text-lg">Sign in to continue your fundraising journey</p>
           </div>
 
