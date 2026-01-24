@@ -17,7 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import kloserLogoIcon from "@/assets/kloser-logo-icon.png";
+import kloserLogo from "@/assets/kloser-logo-new.png";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -41,9 +41,8 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-sidebar border-r border-sidebar-border">
       <div className="flex h-full flex-col">
         {/* Logo */}
-        <div className="flex h-16 items-center gap-3 px-6 border-b border-sidebar-border">
-          <img src={kloserLogoIcon} alt="Kloser.ai" className="h-8 w-8" />
-          <span className="text-xl font-semibold text-sidebar-foreground">Kloser</span>
+        <div className="flex h-16 items-center px-6 border-b border-sidebar-border">
+          <img src={kloserLogo} alt="Kloser.ai" className="h-8" />
         </div>
 
         {/* Startup Selector */}
