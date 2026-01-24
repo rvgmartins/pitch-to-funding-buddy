@@ -4,6 +4,8 @@ import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import kloserLogoFull from "@/assets/kloser-logo-full.png";
+import kloserLogoIcon from "@/assets/kloser-logo-icon.png";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,20 +24,17 @@ export default function Login() {
       {/* Left side - Branding */}
       <div className="hidden w-1/2 bg-sidebar lg:flex lg:flex-col lg:justify-between lg:p-12">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
-            <span className="text-2xl font-bold text-primary-foreground">K</span>
-          </div>
-          <span className="text-2xl font-bold text-sidebar-foreground">Kloser</span>
+          <img src={kloserLogoFull} alt="Kloser.ai" className="h-10" />
         </div>
 
         <div className="space-y-6">
           <h1 className="text-4xl font-bold leading-tight text-sidebar-foreground">
-            Conectamos startups aos
-            <span className="text-gold-gradient block">investidores certos</span>
+            Connecting startups to the
+            <span className="text-gold-gradient block">right investors</span>
           </h1>
           <p className="text-lg text-sidebar-muted">
-            Faça upload do seu pitch e deixe a nossa plataforma encontrar 
-            o financiamento ideal para a sua startup.
+            Upload your pitch and let our platform find 
+            the ideal funding for your startup.
           </p>
           
           <div className="flex gap-8 pt-4">
@@ -45,17 +44,17 @@ export default function Login() {
             </div>
             <div>
               <p className="text-3xl font-bold text-primary">€50M+</p>
-              <p className="text-sm text-sidebar-muted">Investidos</p>
+              <p className="text-sm text-sidebar-muted">Invested</p>
             </div>
             <div>
               <p className="text-3xl font-bold text-primary">200+</p>
-              <p className="text-sm text-sidebar-muted">Investidores</p>
+              <p className="text-sm text-sidebar-muted">Investors</p>
             </div>
           </div>
         </div>
 
         <p className="text-sm text-sidebar-muted">
-          © 2026 Kloser. Todos os direitos reservados.
+          © 2026 Kloser. All rights reserved.
         </p>
       </div>
 
@@ -64,16 +63,13 @@ export default function Login() {
         <div className="w-full max-w-md space-y-8">
           {/* Mobile logo */}
           <div className="flex items-center justify-center gap-3 lg:hidden">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
-              <span className="text-2xl font-bold text-primary-foreground">K</span>
-            </div>
-            <span className="text-2xl font-bold">Kloser</span>
+            <img src={kloserLogoIcon} alt="Kloser.ai" className="h-12" />
           </div>
 
           <div className="space-y-2 text-center lg:text-left">
-            <h2 className="text-3xl font-bold tracking-tight">Bem-vindo de volta</h2>
+            <h2 className="text-3xl font-bold tracking-tight">Welcome back</h2>
             <p className="text-muted-foreground">
-              Entre na sua conta para continuar
+              Sign in to your account to continue
             </p>
           </div>
 
@@ -85,7 +81,7 @@ export default function Login() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="seu@email.com"
+                  placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
@@ -101,7 +97,7 @@ export default function Login() {
                   to="/forgot-password"
                   className="text-sm text-primary hover:underline"
                 >
-                  Esqueceu a password?
+                  Forgot password?
                 </Link>
               </div>
               <div className="relative">
@@ -130,7 +126,7 @@ export default function Login() {
             </div>
 
             <Button type="submit" className="w-full btn-gold" size="lg">
-              Entrar
+              Sign In
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </form>
@@ -140,14 +136,14 @@ export default function Login() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">ou</span>
+              <span className="bg-background px-2 text-muted-foreground">or</span>
             </div>
           </div>
 
           <p className="text-center text-sm text-muted-foreground">
-            Ainda não tem conta?{" "}
+            Don't have an account?{" "}
             <Link to="/register" className="font-medium text-primary hover:underline">
-              Criar conta
+              Create account
             </Link>
           </p>
         </div>
