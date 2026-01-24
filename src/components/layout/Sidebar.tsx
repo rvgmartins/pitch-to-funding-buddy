@@ -17,10 +17,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import kloserLogoIcon from "@/assets/kloser-logo-icon.png";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Upload Pitch", href: "/upload", icon: Upload },
+  { name: "Onboarding", href: "/upload", icon: Upload },
   { name: "Startup Profile", href: "/profile", icon: Building2 },
   { name: "Payments", href: "/payments", icon: CreditCard },
   { name: "Settings", href: "/settings", icon: Settings },
@@ -37,23 +38,21 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
   const location = useLocation();
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-sidebar">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-sidebar border-r border-sidebar-border">
       <div className="flex h-full flex-col">
         {/* Logo */}
-        <div className="flex h-16 items-center gap-2 px-6 border-b border-sidebar-border">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <span className="text-lg font-bold text-primary-foreground">K</span>
-          </div>
-          <span className="text-xl font-bold text-sidebar-foreground">Kloser</span>
+        <div className="flex h-16 items-center gap-3 px-6 border-b border-sidebar-border">
+          <img src={kloserLogoIcon} alt="Kloser.ai" className="h-8 w-8" />
+          <span className="text-xl font-semibold text-sidebar-foreground">Kloser</span>
         </div>
 
         {/* Startup Selector */}
         <div className="p-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex w-full items-center gap-3 rounded-lg bg-sidebar-accent p-3 text-left transition-colors hover:bg-sidebar-accent/80">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/20">
-                  <Building2 className="h-5 w-5 text-primary" />
+              <button className="flex w-full items-center gap-3 rounded-xl bg-sidebar-accent p-3 text-left transition-all hover:bg-sidebar-accent/80">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5">
+                  <Building2 className="h-5 w-5 text-foreground/70" />
                 </div>
                 <div className="flex-1 overflow-hidden">
                   <p className="truncate text-sm font-medium text-sidebar-foreground">
@@ -75,7 +74,7 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
                 <Building2 className="mr-2 h-4 w-4" />
                 GreenTech Solutions
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-primary">
+              <DropdownMenuItem className="text-foreground">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Startup
               </DropdownMenuItem>
@@ -92,9 +91,9 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "bg-primary text-primary-foreground shadow-gold"
+                    ? "bg-foreground text-background"
                     : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground"
                 )}
               >
@@ -107,7 +106,7 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
 
         {/* Add Startup Button */}
         <div className="p-4">
-          <Button className="w-full btn-gold" size="lg">
+          <Button className="w-full rounded-full font-medium" size="lg">
             <Plus className="mr-2 h-4 w-4" />
             New Startup
           </Button>
@@ -117,7 +116,7 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
         <div className="border-t border-sidebar-border p-4">
           <Link
             to="/login"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
           >
             <LogOut className="h-5 w-5" />
             Logout
