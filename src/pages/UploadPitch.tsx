@@ -243,7 +243,7 @@ export default function UploadPitch() {
   const renderOnboardingContent = () => (
     <div className="flex h-[80vh] max-h-[700px] w-full overflow-visible rounded-lg shadow-2xl">
       {/* Left sidebar - Steps */}
-      <div className="w-72 shrink-0 bg-[hsl(222,47%,11%)] p-6 text-white flex flex-col">
+      <div className="w-72 shrink-0 bg-foreground p-6 text-background flex flex-col">
         <h1 className="mb-1 text-2xl font-bold">
           {onboardingSteps.find(s => s.id === onboardingStep)?.title}
         </h1>
@@ -266,8 +266,8 @@ export default function UploadPitch() {
                   onboardingStep > step.id
                     ? "border-white bg-transparent"
                     : onboardingStep === step.id
-                    ? "border-white bg-white text-[hsl(222,47%,11%)]"
-                    : "border-gray-600 text-gray-600"
+                    ? "border-white bg-white text-foreground"
+                    : "border-gray-500 text-gray-500"
                 )}
               >
                 {onboardingStep > step.id ? (
@@ -279,7 +279,7 @@ export default function UploadPitch() {
               <span
                 className={cn(
                   "text-sm font-medium",
-                  onboardingStep >= step.id ? "text-white" : "text-gray-600"
+                  onboardingStep >= step.id ? "text-white" : "text-gray-500"
                 )}
               >
                 {step.title}
@@ -291,14 +291,14 @@ export default function UploadPitch() {
 
       {/* Right content area */}
       <div className="flex flex-1 flex-col bg-white p-6 overflow-y-auto">
-        {/* Progress bar */}
+        {/* Main Progress bar - 4 main phases */}
         <div className="mb-6 flex gap-2">
-          {onboardingSteps.map((step) => (
+          {mainSteps.map((step) => (
             <div
               key={step.id}
               className={cn(
                 "h-1 flex-1 rounded-full transition-all",
-                onboardingStep >= step.id ? "bg-[hsl(222,47%,11%)]" : "bg-gray-200"
+                mainStep >= step.id ? "bg-foreground" : "bg-gray-200"
               )}
             />
           ))}
@@ -548,7 +548,7 @@ export default function UploadPitch() {
             Go back
           </Button>
           <Button
-            className="flex-1 bg-[hsl(222,47%,11%)] rounded-lg h-12 hover:bg-[hsl(222,47%,15%)]"
+            className="flex-1 bg-foreground text-background rounded-lg h-12 hover:bg-foreground/90"
             onClick={goNextOnboarding}
             disabled={!canContinueOnboarding()}
           >
@@ -701,7 +701,7 @@ export default function UploadPitch() {
               Priority support
             </li>
           </ul>
-          <Button className="w-full bg-[hsl(222,47%,11%)] py-6 text-base hover:bg-[hsl(222,47%,15%)]">
+          <Button className="w-full bg-foreground text-background py-6 text-base hover:bg-foreground/90">
             <CreditCard className="mr-2 h-4 w-4" />
             Pay €99 and Unlock
           </Button>
