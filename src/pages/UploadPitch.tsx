@@ -3,7 +3,7 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { 
   Upload, 
-  CheckCircle2, 
+  Check, 
   File,
   X,
   Loader2,
@@ -264,7 +264,7 @@ export default function UploadPitch() {
                 )}
               >
                 {onboardingStep > step.id ? (
-                  <CheckCircle2 className="h-5 w-5" />
+                  <Check className="h-5 w-5" />
                 ) : (
                   <span className="text-sm font-semibold">{step.id}</span>
                 )}
@@ -674,23 +674,23 @@ export default function UploadPitch() {
           </div>
           <ul className="mb-6 space-y-3">
             <li className="flex items-center gap-2 text-sm">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <Check className="h-4 w-4 text-green-600" />
               Complete pitch analysis
             </li>
             <li className="flex items-center gap-2 text-sm">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <Check className="h-4 w-4 text-green-600" />
               All metrics unlocked
             </li>
             <li className="flex items-center gap-2 text-sm">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <Check className="h-4 w-4 text-green-600" />
               Investor matching
             </li>
             <li className="flex items-center gap-2 text-sm">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <Check className="h-4 w-4 text-green-600" />
               AI improvement suggestions
             </li>
             <li className="flex items-center gap-2 text-sm">
-              <CheckCircle2 className="h-4 w-4 text-green-600" />
+              <Check className="h-4 w-4 text-green-600" />
               Priority support
             </li>
           </ul>
@@ -712,52 +712,74 @@ export default function UploadPitch() {
     </div>
   );
 
-  return (
-    <DashboardLayout title="Startup Onboarding" breadcrumb="Onboarding">
-      {/* Main Progress Steps - shown for steps 2-4 */}
-      {mainStep > 1 && (
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            {mainSteps.map((step, index) => (
-              <div key={step.id} className="flex flex-1 items-center">
+  // Progress stepper component matching design
+  const renderMainProgressStepper = () => (
+    <div className="mb-12 px-4">
+      <div className="mx-auto max-w-4xl">
+        <div className="flex items-start justify-between">
+          {mainSteps.map((step, index) => {
+            const isCompleted = mainStep > step.id;
+            const isCurrent = mainStep === step.id;
+            const isPending = mainStep < step.id;
+
+            return (
+              <div key={step.id} className="flex flex-1 items-start">
+                {/* Step circle and content */}
                 <div className="flex flex-col items-center">
+                  {/* Circle */}
                   <div
                     className={cn(
-                      "flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all",
-                      mainStep >= step.id
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-gray-300 text-gray-400"
+                      "flex h-12 w-12 items-center justify-center rounded-full transition-all",
+                      isCompleted && "bg-foreground text-background",
+                      isCurrent && "bg-foreground text-background",
+                      isPending && "border-2 border-muted-foreground/30 text-muted-foreground/50"
                     )}
                   >
-                    {mainStep > step.id ? (
-                      <CheckCircle2 className="h-5 w-5" />
+                    {isCompleted ? (
+                      <Check className="h-5 w-5" strokeWidth={2.5} />
                     ) : (
-                      <span className="text-sm font-semibold">{step.id}</span>
+                      <span className="text-base font-medium">{step.id}</span>
                     )}
                   </div>
-                  <div className="mt-2 text-center">
+                  
+                  {/* Labels */}
+                  <div className="mt-3 text-center">
                     <p className={cn(
                       "text-sm font-medium",
-                      mainStep >= step.id ? "text-foreground" : "text-gray-400"
+                      (isCompleted || isCurrent) ? "text-foreground" : "text-muted-foreground/50"
                     )}>
                       {step.title}
                     </p>
-                    <p className="text-xs text-gray-400">{step.description}</p>
+                    <p className={cn(
+                      "text-xs",
+                      (isCompleted || isCurrent) ? "text-muted-foreground" : "text-muted-foreground/40"
+                    )}>
+                      {step.description}
+                    </p>
                   </div>
                 </div>
+
+                {/* Connector line */}
                 {index < mainSteps.length - 1 && (
-                  <div className={cn(
-                    "mx-4 h-0.5 flex-1",
-                    mainStep > step.id ? "bg-primary" : "bg-gray-200"
-                  )} />
+                  <div className="relative mt-6 flex-1 px-4">
+                    <div className={cn(
+                      "h-0.5 w-full",
+                      isCompleted ? "bg-foreground" : "bg-muted-foreground/20"
+                    )} />
+                  </div>
                 )}
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      )}
+      </div>
+    </div>
+  );
 
-      {/* Step Content */}
+  return (
+    <DashboardLayout title="Startup Onboarding" breadcrumb="Onboarding">
+      {/* Main Progress Steps - always visible */}
+      {renderMainProgressStepper()}
       {mainStep === 1 && renderOnboarding()}
       {mainStep === 2 && renderAnalysis()}
       {mainStep === 3 && renderReview()}
