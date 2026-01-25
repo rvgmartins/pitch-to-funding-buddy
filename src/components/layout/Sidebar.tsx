@@ -21,7 +21,6 @@ import kloserLogo from "@/assets/klogo.png";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Onboarding", href: "/onboarding", icon: Upload },
   { name: "Startup Profile", href: "/profile", icon: Building2 },
   { name: "Payments", href: "/payments", icon: CreditCard },
   { name: "Settings", href: "/settings", icon: Settings },
@@ -105,10 +104,12 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
 
         {/* Add Startup Button */}
         <div className="p-4">
-          <Button className="w-full rounded-full font-medium" size="lg">
-            <Plus className="mr-2 h-4 w-4" />
-            New Startup
-          </Button>
+          <Link to="/onboarding">
+            <Button className="w-full rounded-full font-medium" size="lg">
+              <Plus className="mr-2 h-4 w-4" />
+              New Startup
+            </Button>
+          </Link>
         </div>
 
         {/* User / Logout */}
