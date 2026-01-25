@@ -22,7 +22,7 @@ export default function Login() {
     <div className="min-h-screen bg-background bg-grid-pattern flex flex-col">
       {/* Header */}
       <header className="w-full flex items-center justify-between px-4 sm:px-6 py-4">
-        <img src={kloserLogo} alt="Kloser.ai" className="h-16 sm:h-24 md:h-[10.5rem]" />
+        <img src={kloserLogo} alt="Kloser.ai" className="h-20 sm:h-24 md:h-[10.5rem]" />
         <div className="flex items-center gap-2 sm:gap-3">
           <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">Don't have an account?</span>
           <Link to="/register">
