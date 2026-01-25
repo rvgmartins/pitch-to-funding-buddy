@@ -14,7 +14,15 @@ import {
   Target,
   TrendingUp,
   Users,
-  ArrowRight
+  ArrowRight,
+  AlertTriangle,
+  CheckCircle2,
+  Building2,
+  MapPin,
+  Wallet,
+  Layers,
+  FileText,
+  Send
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -122,13 +130,34 @@ const investorTypeOptions = [
   { value: "both", label: "Both lead and follow-on" },
 ];
 
-const analysisResults = [
-  { label: "Problem", value: "Clearly defined with market data", score: 85, locked: false },
-  { label: "Solution", value: "Innovative and differentiated", score: 78, locked: false },
-  { label: "Market", value: "TAM: €15B, SAM: €2B, SOM: €200M", score: 82, locked: true },
-  { label: "Business Model", value: "B2B SaaS with solid unit economics", score: 88, locked: true },
-  { label: "Team", value: "Relevant industry experience", score: 75, locked: true },
-  { label: "Traction", value: "€15K MRR, 45 customers, 25% growth", score: 80, locked: true },
+// Investor Match Summary data
+const investorMatchData = {
+  relevantInvestors: 47,
+  stageMatch: "Pre-Seed / Seed",
+  sectorMatch: "AI/ML, SaaS",
+  geography: "Europe",
+  checkSize: "€100K - €500K"
+};
+
+// What's Working Well
+const workingWell = [
+  { title: "Clear Problem Definition", description: "Strong market validation with quantifiable pain points" },
+  { title: "Innovative Solution", description: "Differentiated approach with defensible technology" },
+  { title: "Team Background", description: "Relevant industry experience and complementary skills" },
+];
+
+// Where Investors Will Push Back
+const investorConcerns = [
+  { title: "Market Size Clarity", description: "TAM/SAM/SOM needs more granular breakdown", locked: true },
+  { title: "Go-to-Market Strategy", description: "Customer acquisition channels need validation", locked: true },
+  { title: "Unit Economics", description: "LTV/CAC ratio and payback period unclear", locked: true },
+];
+
+// What Happens Next
+const nextSteps = [
+  { icon: FileText, title: "Review Positioning", description: "Fine-tune your pitch narrative based on insights" },
+  { icon: Target, title: "Finalize Target List", description: "Get matched with relevant investors for your stage" },
+  { icon: Send, title: "Structured Execution", description: "Access outreach templates and tracking tools" },
 ];
 
 export default function UploadPitch() {
@@ -233,11 +262,6 @@ export default function UploadPitch() {
     }
   };
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-600";
-    if (score >= 60) return "text-yellow-600";
-    return "text-red-600";
-  };
 
   // Render onboarding wizard content (for modal)
   const renderOnboardingContent = () => (
@@ -582,83 +606,152 @@ export default function UploadPitch() {
 
   // Render Review step (main step 3)
   const renderReview = () => (
-    <div className="mx-auto max-w-3xl rounded-2xl bg-white p-8 shadow-lg">
-      <div className="space-y-6">
-        {/* Overall Score */}
-        <div className="flex items-center justify-between rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 p-6">
-          <div>
-            <p className="text-sm font-medium text-gray-500">Overall Score</p>
-            <p className="text-4xl font-bold text-primary">{overallScore}/100</p>
-            <p className="text-sm text-gray-500">Above industry average</p>
-          </div>
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/20">
-            <Star className="h-10 w-10 text-primary" />
-          </div>
-        </div>
-
-        {/* Analysis Results */}
-        <div className="space-y-3">
-          {analysisResults.map((result, index) => (
-            <div
-              key={index}
-              className={cn(
-                "flex items-center justify-between rounded-lg border p-4 transition-all",
-                result.locked ? "bg-gray-50" : "bg-white"
-              )}
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                  {index === 0 && <Target className="h-5 w-5 text-primary" />}
-                  {index === 1 && <Sparkles className="h-5 w-5 text-primary" />}
-                  {index === 2 && <TrendingUp className="h-5 w-5 text-primary" />}
-                  {index === 3 && <CreditCard className="h-5 w-5 text-primary" />}
-                  {index === 4 && <Users className="h-5 w-5 text-primary" />}
-                  {index === 5 && <TrendingUp className="h-5 w-5 text-primary" />}
-                </div>
-                <div>
-                  <p className="font-medium">{result.label}</p>
-                  {result.locked ? (
-                    <p className="text-sm text-gray-400 blur-sm select-none">
-                      {result.value}
-                    </p>
-                  ) : (
-                    <p className="text-sm text-gray-500">{result.value}</p>
-                  )}
-                </div>
+    <div className="mx-auto max-w-4xl space-y-6">
+      {/* Overall Score Card */}
+      <div className="rounded-2xl bg-white p-6 md:p-8 shadow-lg">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
+                <Star className="h-8 w-8 text-amber-500" />
               </div>
-              <div className="flex items-center gap-2">
-                {result.locked ? (
-                  <div className="flex items-center gap-1 text-gray-400">
-                    <Lock className="h-4 w-4" />
-                    <span className="text-sm blur-sm select-none">{result.score}</span>
-                  </div>
-                ) : (
-                  <span className={cn("text-lg font-bold", getScoreColor(result.score))}>
-                    {result.score}
-                  </span>
-                )}
+              <div>
+                <p className="text-4xl md:text-5xl font-bold text-foreground">{overallScore}%</p>
+                <p className="text-lg font-medium text-amber-600">Fundable with Improvements</p>
               </div>
             </div>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3 rounded-lg bg-primary/10 p-4">
-          <Lock className="h-5 w-5 text-primary" />
-          <div className="flex-1">
-            <p className="font-medium">4 metrics locked</p>
-            <p className="text-sm text-gray-500">
-              Unlock to see full analysis and find investors
+            <p className="text-muted-foreground mt-3">
+              Your startup shows strong potential. With targeted improvements in key areas, 
+              you can significantly increase your chances of securing investment.
             </p>
           </div>
         </div>
+      </div>
 
+      {/* Investor Match Summary */}
+      <div className="rounded-2xl bg-white p-6 md:p-8 shadow-lg">
+        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <Users className="h-5 w-5 text-primary" />
+          Investor Match Summary
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="text-center p-3 rounded-xl bg-muted/50">
+            <Building2 className="h-5 w-5 mx-auto mb-2 text-primary" />
+            <p className="text-2xl font-bold text-foreground">{investorMatchData.relevantInvestors}</p>
+            <p className="text-xs text-muted-foreground">Relevant Investors</p>
+          </div>
+          <div className="text-center p-3 rounded-xl bg-muted/50">
+            <Layers className="h-5 w-5 mx-auto mb-2 text-primary" />
+            <p className="text-sm font-semibold text-foreground">{investorMatchData.stageMatch}</p>
+            <p className="text-xs text-muted-foreground">Stage Focus</p>
+          </div>
+          <div className="text-center p-3 rounded-xl bg-muted/50">
+            <Target className="h-5 w-5 mx-auto mb-2 text-primary" />
+            <p className="text-sm font-semibold text-foreground">{investorMatchData.sectorMatch}</p>
+            <p className="text-xs text-muted-foreground">Sector Match</p>
+          </div>
+          <div className="text-center p-3 rounded-xl bg-muted/50">
+            <MapPin className="h-5 w-5 mx-auto mb-2 text-primary" />
+            <p className="text-sm font-semibold text-foreground">{investorMatchData.geography}</p>
+            <p className="text-xs text-muted-foreground">Geography</p>
+          </div>
+          <div className="text-center p-3 rounded-xl bg-muted/50 col-span-2 md:col-span-1">
+            <Wallet className="h-5 w-5 mx-auto mb-2 text-primary" />
+            <p className="text-sm font-semibold text-foreground">{investorMatchData.checkSize}</p>
+            <p className="text-xs text-muted-foreground">Check Size</p>
+          </div>
+        </div>
+      </div>
+
+      {/* What's Working Well & Concerns Grid */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* What's Working Well */}
+        <div className="rounded-2xl bg-white p-6 shadow-lg">
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-green-700">
+            <CheckCircle2 className="h-5 w-5" />
+            What's Working Well
+          </h3>
+          <div className="space-y-3">
+            {workingWell.map((item, index) => (
+              <div key={index} className="flex gap-3 p-3 rounded-lg bg-green-50 border border-green-100">
+                <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-green-900">{item.title}</p>
+                  <p className="text-sm text-green-700">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Where Investors Will Push Back */}
+        <div className="rounded-2xl bg-white p-6 shadow-lg">
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-amber-700">
+            <AlertTriangle className="h-5 w-5" />
+            Where Investors Will Push Back
+          </h3>
+          <div className="space-y-3">
+            {investorConcerns.map((item, index) => (
+              <div key={index} className={cn(
+                "flex gap-3 p-3 rounded-lg border",
+                item.locked ? "bg-gray-50 border-gray-200" : "bg-amber-50 border-amber-100"
+              )}>
+                {item.locked ? (
+                  <Lock className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                ) : (
+                  <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                )}
+                <div>
+                  <p className={cn("font-medium", item.locked ? "text-gray-500" : "text-amber-900")}>
+                    {item.title}
+                  </p>
+                  <p className={cn("text-sm", item.locked ? "text-gray-400 blur-sm select-none" : "text-amber-700")}>
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+            <div className="flex items-center gap-2 pt-2 text-sm text-muted-foreground">
+              <Lock className="h-4 w-4" />
+              <span>Unlock full analysis to see detailed insights</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* What Happens Next */}
+      <div className="rounded-2xl bg-white p-6 md:p-8 shadow-lg">
+        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <Sparkles className="h-5 w-5 text-primary" />
+          What Happens Next
+        </h3>
+        <div className="grid md:grid-cols-3 gap-4">
+          {nextSteps.map((step, index) => (
+            <div key={index} className="flex flex-col items-center text-center p-4 rounded-xl bg-muted/30 border border-border/50">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 mb-3">
+                <step.icon className="h-6 w-6 text-primary" />
+              </div>
+              <p className="font-medium text-foreground">{step.title}</p>
+              <p className="text-sm text-muted-foreground mt-1">{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="rounded-2xl bg-gradient-to-r from-foreground to-foreground/90 p-6 md:p-8 text-center">
+        <h3 className="text-xl font-bold text-background mb-2">Ready to unlock your full potential?</h3>
+        <p className="text-background/70 mb-6">
+          Get complete analysis, investor matches, and personalized recommendations
+        </p>
         <Button 
-          className="w-full bg-[hsl(222,47%,11%)] py-6 text-base hover:bg-[hsl(222,47%,15%)]" 
+          size="lg"
+          className="bg-background text-foreground hover:bg-background/90 px-8 py-6 text-base"
           onClick={() => setMainStep(4)}
         >
-          <CreditCard className="mr-2 h-4 w-4" />
+          <CreditCard className="mr-2 h-5 w-5" />
           Unlock Full Access
-          <ArrowRight className="ml-2 h-4 w-4" />
+          <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
       </div>
     </div>
