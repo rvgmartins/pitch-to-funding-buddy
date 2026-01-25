@@ -21,7 +21,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-background bg-grid-pattern flex flex-col">
       {/* Header */}
-      <header className="w-full flex items-center justify-between">
+      <header className="w-full flex items-center justify-between px-6 py-4">
         <img src={kloserLogo} alt="Kloser.ai" className="h-[10.5rem]" />
         <div className="flex items-center gap-3">
           <span className="text-sm text-muted-foreground">Don't have an account?</span>
