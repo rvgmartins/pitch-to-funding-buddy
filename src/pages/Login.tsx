@@ -46,7 +46,6 @@ export default function Login() {
                 AI-Powered Fundraising
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-bold text-foreground">Welcome back</h1>
               <p className="text-muted-foreground">Sign in to continue your fundraising journey</p>
             </div>
 
