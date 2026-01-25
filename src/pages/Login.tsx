@@ -19,7 +19,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-background bg-grid-pattern flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="w-full flex items-center justify-between">
         <img src={kloserLogo} alt="Kloser.ai" className="h-[10.5rem]" />
