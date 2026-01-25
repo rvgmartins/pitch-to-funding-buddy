@@ -241,28 +241,28 @@ export default function UploadPitch() {
 
   // Render onboarding wizard content (for modal)
   const renderOnboardingContent = () => (
-    <div className="flex h-[80vh] max-h-[700px] w-full overflow-visible rounded-lg shadow-2xl">
+    <div className="flex flex-col md:flex-row h-[90vh] md:h-[80vh] max-h-[700px] w-full overflow-visible rounded-lg shadow-2xl">
       {/* Left sidebar - Steps */}
-      <div className="w-72 shrink-0 bg-foreground p-6 text-background flex flex-col">
-        <h1 className="mb-1 text-2xl font-bold">
+      <div className="w-full md:w-72 shrink-0 bg-foreground p-4 md:p-6 text-background flex flex-col">
+        <h1 className="mb-1 text-xl md:text-2xl font-bold">
           {onboardingSteps.find(s => s.id === onboardingStep)?.title}
         </h1>
-        <p className="mb-6 text-sm text-gray-400">
+        <p className="mb-4 md:mb-6 text-xs md:text-sm text-gray-400">
           Complete all the following steps {onboardingStep}/4
         </p>
 
-        <div className="space-y-1">
+        <div className="flex md:flex-col gap-2 md:gap-0 md:space-y-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
           {onboardingSteps.map((step) => (
             <div
               key={step.id}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all",
+                "flex items-center gap-2 md:gap-3 rounded-lg px-2 md:px-3 py-2 md:py-2.5 transition-all whitespace-nowrap",
                 onboardingStep === step.id && "bg-white/10"
               )}
             >
               <div
                 className={cn(
-                  "flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all text-sm",
+                  "flex h-6 w-6 md:h-8 md:w-8 items-center justify-center rounded-full border-2 transition-all text-xs md:text-sm flex-shrink-0",
                   onboardingStep > step.id
                     ? "border-white bg-transparent"
                     : onboardingStep === step.id
@@ -271,14 +271,14 @@ export default function UploadPitch() {
                 )}
               >
                 {onboardingStep > step.id ? (
-                  <Check className="h-4 w-4" />
+                  <Check className="h-3 w-3 md:h-4 md:w-4" />
                 ) : (
                   <span className="font-semibold">{step.id}</span>
                 )}
               </div>
               <span
                 className={cn(
-                  "text-sm font-medium",
+                  "text-xs md:text-sm font-medium hidden md:inline",
                   onboardingStep >= step.id ? "text-white" : "text-gray-500"
                 )}
               >
@@ -290,7 +290,7 @@ export default function UploadPitch() {
       </div>
 
       {/* Right content area */}
-      <div className="flex flex-1 flex-col bg-white p-6 overflow-y-auto">
+      <div className="flex flex-1 flex-col bg-white p-4 md:p-6 overflow-y-auto">
         {/* Main Progress bar - 4 main phases */}
         <div className="mb-6 flex gap-2">
           {mainSteps.map((step) => (
@@ -538,7 +538,7 @@ export default function UploadPitch() {
         </div>
 
         {/* Navigation buttons */}
-        <div className="mt-6 flex gap-3 pt-4 border-t border-gray-100">
+        <div className="mt-4 md:mt-6 flex gap-2 md:gap-3 pt-4 border-t border-gray-100">
           <Button
             variant="outline"
             className="flex-1 rounded-lg h-12"
@@ -721,9 +721,9 @@ export default function UploadPitch() {
 
   // Progress stepper component matching design
   const renderMainProgressStepper = () => (
-    <div className="mb-12 px-4">
+    <div className="mb-6 md:mb-12 px-2 md:px-4">
       <div className="mx-auto max-w-4xl">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between gap-1 md:gap-0">
           {mainSteps.map((step, index) => {
             const isCompleted = mainStep > step.id;
             const isCurrent = mainStep === step.id;
@@ -736,29 +736,29 @@ export default function UploadPitch() {
                   {/* Circle */}
                   <div
                     className={cn(
-                      "flex h-12 w-12 items-center justify-center rounded-full transition-all",
+                      "flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-full transition-all",
                       isCompleted && "bg-foreground text-background",
                       isCurrent && "bg-foreground text-background",
                       isPending && "border-2 border-muted-foreground/30 text-muted-foreground/50"
                     )}
                   >
                     {isCompleted ? (
-                      <Check className="h-5 w-5" strokeWidth={2.5} />
+                      <Check className="h-4 w-4 md:h-5 md:w-5" strokeWidth={2.5} />
                     ) : (
-                      <span className="text-base font-medium">{step.id}</span>
+                      <span className="text-xs md:text-base font-medium">{step.id}</span>
                     )}
                   </div>
                   
                   {/* Labels */}
-                  <div className="mt-3 text-center">
+                  <div className="mt-2 md:mt-3 text-center">
                     <p className={cn(
-                      "text-sm font-medium",
+                      "text-[10px] md:text-sm font-medium leading-tight",
                       (isCompleted || isCurrent) ? "text-foreground" : "text-muted-foreground/50"
                     )}>
                       {step.title}
                     </p>
                     <p className={cn(
-                      "text-xs",
+                      "text-[9px] md:text-xs hidden sm:block",
                       (isCompleted || isCurrent) ? "text-muted-foreground" : "text-muted-foreground/40"
                     )}>
                       {step.description}
@@ -768,7 +768,7 @@ export default function UploadPitch() {
 
                 {/* Connector line */}
                 {index < mainSteps.length - 1 && (
-                  <div className="relative mt-6 flex-1 px-4">
+                  <div className="relative mt-4 md:mt-6 flex-1 px-1 md:px-4">
                     <div className={cn(
                       "h-0.5 w-full",
                       isCompleted ? "bg-foreground" : "bg-muted-foreground/20"
@@ -790,7 +790,7 @@ export default function UploadPitch() {
       
       {/* Onboarding Modal with blur backdrop */}
       <Dialog open={isOnboardingOpen && mainStep === 1} onOpenChange={setIsOnboardingOpen}>
-        <DialogContent className="max-w-[900px] w-full border-0 p-0 gap-0 overflow-visible bg-transparent shadow-none [&>button]:hidden">
+        <DialogContent className="max-w-[95vw] md:max-w-[900px] w-full border-0 p-0 gap-0 overflow-visible bg-transparent shadow-none [&>button]:hidden">
           {renderOnboardingContent()}
         </DialogContent>
       </Dialog>

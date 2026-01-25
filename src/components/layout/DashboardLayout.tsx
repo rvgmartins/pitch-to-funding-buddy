@@ -23,16 +23,16 @@ export function DashboardLayout({ children, title, breadcrumb }: DashboardLayout
       <Sidebar />
       
       {/* Main content */}
-      <div className="pl-64">
+      <div className="lg:pl-64">
         {/* Top header */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="sticky top-0 z-30 flex h-14 sm:h-16 items-center justify-between border-b border-border bg-background/95 px-4 sm:px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="lg:hidden">
               <Menu className="h-5 w-5" />
             </Button>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Notifications */}
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
@@ -44,11 +44,11 @@ export function DashboardLayout({ children, title, breadcrumb }: DashboardLayout
             {/* User menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="gap-2">
+                <Button variant="ghost" className="gap-2 px-2 sm:px-4">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
                     <User className="h-4 w-4 text-primary-foreground" />
                   </div>
-                  <span className="hidden text-sm font-medium md:inline-block">
+                  <span className="hidden text-sm font-medium sm:inline-block">
                     João Silva
                   </span>
                 </Button>
@@ -69,12 +69,12 @@ export function DashboardLayout({ children, title, breadcrumb }: DashboardLayout
         </header>
 
         {/* Page content */}
-        <main className="p-6">
+        <main className="p-4 sm:p-6">
           {/* Page header */}
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+          <div className="mb-4 sm:mb-6">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">{title}</h1>
             {breadcrumb && (
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
                 Startup <span className="mx-2">›</span>
                 <span className="text-primary">{breadcrumb}</span>
               </p>

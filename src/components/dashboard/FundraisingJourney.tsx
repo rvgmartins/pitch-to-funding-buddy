@@ -89,19 +89,19 @@ export function FundraisingJourney() {
   const overallProgress = Math.round((completedSteps / totalSteps) * 100);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Your Fundraising Journey</h2>
-          <p className="text-muted-foreground">Track your progress through each stage of your fundraise</p>
+          <h2 className="text-xl md:text-2xl font-bold text-foreground">Your Fundraising Journey</h2>
+          <p className="text-sm md:text-base text-muted-foreground">Track your progress through each stage of your fundraise</p>
         </div>
 
         {/* Overall Progress */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-3xl font-bold text-primary">{overallProgress}%</span>
-            <span className="text-sm text-muted-foreground">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+            <span className="text-2xl md:text-3xl font-bold text-primary">{overallProgress}%</span>
+            <span className="text-xs md:text-sm text-muted-foreground">
               Journey Progress <span className="font-medium text-foreground">{completedSteps} of {totalSteps} steps completed</span>
             </span>
           </div>
@@ -109,12 +109,12 @@ export function FundraisingJourney() {
         </div>
 
         {/* Phase indicators */}
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-2 md:gap-4">
           {phases.map((phase) => (
             <div
               key={phase.number}
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold",
+                "flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full text-xs md:text-sm font-bold",
                 phase.steps.some((s) => s.completed)
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground"
@@ -127,13 +127,13 @@ export function FundraisingJourney() {
       </div>
 
       {/* Journey Map */}
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Complete Journey Map</h3>
-          <span className="text-sm text-muted-foreground">Scroll to explore all phases →</span>
+          <h3 className="text-base md:text-lg font-semibold">Complete Journey Map</h3>
+          <span className="text-xs md:text-sm text-muted-foreground hidden sm:inline">Scroll to explore all phases →</span>
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-4">
+        <div className="flex gap-3 md:gap-4 overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
           {phases.map((phase) => {
             const phaseCompleted = phase.steps.filter((s) => s.completed).length;
             const phaseTotal = phase.steps.length;
@@ -143,7 +143,7 @@ export function FundraisingJourney() {
               <Card
                 key={phase.number}
                 className={cn(
-                  "min-w-[320px] flex-shrink-0 rounded-xl shadow-card transition-shadow hover:shadow-card-hover",
+                  "min-w-[280px] md:min-w-[320px] flex-shrink-0 rounded-xl shadow-card transition-shadow hover:shadow-card-hover",
                   phase.locked && "opacity-75"
                 )}
               >
@@ -201,21 +201,21 @@ export function FundraisingJourney() {
 
       {/* Tool Stack Access */}
       <Card className="shadow-card rounded-xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Your Tool Stack Access</CardTitle>
-          <div className="flex gap-6 pt-2">
-            <div className="text-sm">
+        <CardHeader className="pb-3 md:pb-6">
+          <CardTitle className="text-base md:text-lg">Your Tool Stack Access</CardTitle>
+          <div className="flex flex-wrap gap-4 md:gap-6 pt-2">
+            <div className="text-xs md:text-sm">
               <span className="text-muted-foreground">Investment Team</span>
               <span className="ml-2 font-bold text-foreground">€150/hr</span>
             </div>
-            <div className="text-sm">
+            <div className="text-xs md:text-sm">
               <span className="text-muted-foreground">Senior Team</span>
               <span className="ml-2 font-bold text-foreground">€550/hr</span>
             </div>
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {toolStackAccess.map((item) => (
               <div
                 key={item.phase}
