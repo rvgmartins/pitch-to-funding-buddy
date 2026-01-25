@@ -21,12 +21,12 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-background bg-grid-pattern flex flex-col">
       {/* Header */}
-      <header className="w-full flex items-center justify-between px-6 py-4">
-        <img src={kloserLogo} alt="Kloser.ai" className="h-[10.5rem]" />
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-muted-foreground">Don't have an account?</span>
+      <header className="w-full flex items-center justify-between px-4 sm:px-6 py-4">
+        <img src={kloserLogo} alt="Kloser.ai" className="h-16 sm:h-24 md:h-[10.5rem]" />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">Don't have an account?</span>
           <Link to="/register">
-            <Button variant="outline" className="rounded-full px-5 h-9 text-sm font-medium">
+            <Button variant="outline" className="rounded-full px-4 sm:px-5 h-8 sm:h-9 text-xs sm:text-sm font-medium">
               Sign Up
             </Button>
           </Link>
@@ -34,7 +34,7 @@ export default function Login() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-6 py-12">
+      <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12">
         <div className="w-full max-w-md space-y-8">
           {/* Hero Text */}
           <div className="text-center space-y-4">
@@ -47,7 +47,7 @@ export default function Login() {
           </div>
 
           {/* Login Form */}
-          <div className="bg-card rounded-2xl border border-border p-8 shadow-sm">
+          <div className="bg-card rounded-2xl border border-border p-5 sm:p-8 shadow-sm">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium">
@@ -158,21 +158,21 @@ export default function Login() {
 
       {/* Stats Section */}
       <footer className="border-t border-border bg-muted/30">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <div className="flex items-center justify-center gap-12 text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          <div className="flex items-center justify-center gap-6 sm:gap-12 text-center">
             <div>
-              <p className="text-3xl font-bold">500+</p>
-              <p className="text-sm text-muted-foreground">Startups</p>
+              <p className="text-xl sm:text-3xl font-bold">500+</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Startups</p>
             </div>
-            <div className="h-8 w-px bg-border" />
+            <div className="h-6 sm:h-8 w-px bg-border" />
             <div>
-              <p className="text-3xl font-bold">€50M+</p>
-              <p className="text-sm text-muted-foreground">Raised</p>
+              <p className="text-xl sm:text-3xl font-bold">€50M+</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Raised</p>
             </div>
-            <div className="h-8 w-px bg-border" />
+            <div className="h-6 sm:h-8 w-px bg-border" />
             <div>
-              <p className="text-3xl font-bold">200+</p>
-              <p className="text-sm text-muted-foreground">Investors</p>
+              <p className="text-xl sm:text-3xl font-bold">200+</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Investors</p>
             </div>
           </div>
         </div>
