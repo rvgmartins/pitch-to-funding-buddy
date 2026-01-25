@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import kloserLogo from "@/assets/kloser-logo-new.png";
-import loginHero from "@/assets/login-hero.jpg";
+import loginHero from "@/assets/login-hero-bw.jpg";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -25,7 +25,7 @@ export default function Login() {
       <div className="flex-1 bg-background bg-grid-pattern flex flex-col min-h-screen lg:min-h-0">
         {/* Header */}
         <header className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-          <img src={kloserLogo} alt="Kloser.ai" className="h-20 sm:h-24 md:h-28" />
+          <img src={kloserLogo} alt="Kloser.ai" className="h-24 sm:h-28 md:h-32" />
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">Don't have an account?</span>
             <Link to="/register">
