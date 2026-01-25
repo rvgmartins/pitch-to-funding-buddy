@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Sidebar } from "./Sidebar";
+import { MobileSidebar } from "./MobileSidebar";
 import { Bell, Menu, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,16 +19,24 @@ interface DashboardLayoutProps {
 }
 
 export function DashboardLayout({ children, title, breadcrumb }: DashboardLayoutProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Sidebar />
+      <MobileSidebar open={mobileMenuOpen} onOpenChange={setMobileMenuOpen} />
       
       {/* Main content */}
       <div className="lg:pl-64">
         {/* Top header */}
         <header className="sticky top-0 z-30 flex h-14 sm:h-16 items-center justify-between border-b border-border bg-background/95 px-4 sm:px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="lg:hidden">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="lg:hidden"
+              onClick={() => setMobileMenuOpen(true)}
+            >
               <Menu className="h-5 w-5" />
             </Button>
           </div>
