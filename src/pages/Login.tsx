@@ -40,7 +40,7 @@ export default function Login() {
         <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-12 py-8 sm:py-12">
           <div className="w-full max-w-md space-y-8">
             {/* Hero Text */}
-            <div className="space-y-4">
+            <div className="text-center space-y-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-sm font-medium">
                 <Sparkles className="h-4 w-4" />
                 AI-Powered Fundraising
