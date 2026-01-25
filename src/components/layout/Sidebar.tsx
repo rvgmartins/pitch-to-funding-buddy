@@ -41,7 +41,7 @@ export function Sidebar({ currentStartup = { name: "TechVenture AI", pitchCount:
       <div className="flex h-full flex-col">
         {/* Logo */}
         <div className="flex h-16 items-center justify-center px-5 border-b border-sidebar-border">
-          <img src={kloserLogo} alt="Kloser.ai" className="h-8 w-auto" />
+          <img src={kloserLogo} alt="Kloser.ai" className="h-10 w-auto" />
         </div>
 
         {/* Startup Selector */}
