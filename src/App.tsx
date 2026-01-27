@@ -10,6 +10,7 @@ import Onboarding from "./pages/Onboarding";
 import StartupProfile from "./pages/StartupProfile";
 import DeckScore from "./pages/DeckScore";
 import Payments from "./pages/Payments";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 // Admin pages
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/profile" element={<StartupProfile />} />
           <Route path="/deck-score" element={<DeckScore />} />
           <Route path="/payments" element={<Payments />} />
+          <Route path="/settings" element={<Settings />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminDashboard />} />
