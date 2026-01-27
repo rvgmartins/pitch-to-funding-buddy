@@ -25,7 +25,6 @@ import {
   Send
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -38,7 +37,6 @@ import { Progress } from "@/components/ui/progress";
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
 } from "@/components/ui/dialog";
 
 // Main flow steps
@@ -49,85 +47,82 @@ const mainSteps = [
   { id: 4, title: "Payment", description: "Unlock access" },
 ];
 
-// Onboarding sub-steps
+// Onboarding sub-steps (now only 2)
 const onboardingSteps = [
-  { id: 1, title: "Founder Details" },
-  { id: 2, title: "Company Details" },
-  { id: 3, title: "Data Sources" },
-  { id: 4, title: "Round Dynamics" },
+  { id: 1, title: "Upload" },
+  { id: 2, title: "Confirm Data" },
 ];
 
-const experienceOptions = [
-  { value: "getting-started", label: "Getting Started - First time raising venture capital" },
-  { value: "seasoned", label: "Seasoned - Have raised 1-2 venture before from institutional investors" },
-  { value: "expert", label: "Expert - Have previously raised at least 3 or more venture rounds from institutional investors" },
-];
-
-const capitalRaisedOptions = [
-  { value: "less-100k", label: "Less than 100K" },
-  { value: "100k-500k", label: "100K - 500K" },
-  { value: "500k-1m", label: "500K - 1M" },
-  { value: "1m-5m", label: "1M - 5M" },
-  { value: "more-5m", label: "More than 5M" },
-];
-
+// Sector options from the reference image
 const sectorOptions = [
-  { value: "ai-ml", label: "AI/Machine Learning" },
-  { value: "fintech", label: "FinTech" },
-  { value: "healthtech", label: "HealthTech" },
-  { value: "edtech", label: "EdTech" },
-  { value: "ecommerce", label: "E-commerce" },
-  { value: "saas", label: "SaaS" },
-  { value: "marketplace", label: "Marketplace" },
-  { value: "other", label: "Other" },
+  { value: "saas", label: "SAAS" },
+  { value: "health-tech", label: "Health Tech" },
+  { value: "fintech", label: "FinTEch" },
+  { value: "mobility", label: "Mobility" },
+  { value: "energy", label: "Energy" },
+  { value: "mkt-tech", label: "Mkt Tech" },
+  { value: "food-tech", label: "Food Tech" },
+  { value: "re-tech", label: "RE Tech" },
+  { value: "media-tech", label: "Media Tech" },
+  { value: "cyber-security", label: "Cyber Security" },
+  { value: "edu-tech", label: "Edu Tech" },
+  { value: "telco", label: "Telco" },
+  { value: "legal-tech", label: "Legal Tech" },
+  { value: "travel-tech", label: "Travel Tech" },
+  { value: "wellness-tech", label: "Wellness Tech" },
+  { value: "robotics", label: "Robotics" },
+  { value: "semiconductors", label: "Semiconductors" },
+  { value: "sport-tech", label: "Sport Tech" },
+  { value: "gaming", label: "Gaming" },
+  { value: "consumer-tech", label: "Consumer Tech" },
+  { value: "chemicals", label: "Chemicals" },
+  { value: "space-tech", label: "Space Tech" },
+  { value: "engineering-manufacturing", label: "Engineering & Manufacturing" },
+  { value: "blue-tech", label: "Blue Tech" },
+  { value: "esg-impact", label: "ESG Impact" },
+  { value: "supply-chain", label: "Supply Chain" },
+  { value: "ai", label: "AI" },
+  { value: "blockchain", label: "Blockchain" },
+  { value: "biotech", label: "BioTech" },
+  { value: "deep-tech", label: "Deep Tech" },
+  { value: "e-commerce", label: "E-commerce" },
 ];
 
-const subSectorOptions = [
-  { value: "b2b", label: "B2B" },
-  { value: "b2c", label: "B2C" },
-  { value: "b2b2c", label: "B2B2C" },
-  { value: "d2c", label: "D2C" },
-];
-
+// Round options
 const roundOptions = [
   { value: "pre-seed", label: "Pre-Seed" },
   { value: "seed", label: "Seed" },
   { value: "series-a", label: "Series A" },
   { value: "series-b", label: "Series B" },
-  { value: "series-c", label: "Series C+" },
+  { value: "series-c-above", label: "Series C and above" },
+  { value: "secondary", label: "Secondary" },
 ];
 
-const countryOptions = [
-  { value: "portugal", label: "Portugal" },
-  { value: "spain", label: "Spain" },
-  { value: "uk", label: "United Kingdom" },
-  { value: "germany", label: "Germany" },
-  { value: "france", label: "France" },
-  { value: "usa", label: "United States" },
-  { value: "other", label: "Other" },
+// Segment options
+const segmentOptions = [
+  { value: "b2c", label: "B2C" },
+  { value: "b2b", label: "B2B" },
+  { value: "b2b2c", label: "B2B2C" },
 ];
 
-const timelineOptions = [
-  { value: "now", label: "Now" },
-  { value: "1-3-months", label: "1-3 months" },
-  { value: "3-6-months", label: "3-6 months" },
-  { value: "6-12-months", label: "6-12 months" },
-  { value: "12-plus-months", label: "12+ months" },
+// Ask options
+const askOptions = [
+  { value: "under-250k", label: "Under 250k" },
+  { value: "250k-1m", label: "250k to 1M" },
+  { value: "1m-5m", label: "1M to 5M" },
+  { value: "5m-15m", label: "5M to 15M" },
+  { value: "15m-50m", label: "15M to 50M" },
+  { value: "above-50m", label: "Above 50M" },
 ];
 
-const roundSizeOptions = [
-  { value: "less-500k", label: "Less than 500K" },
-  { value: "500k-1m", label: "500K - 1M" },
-  { value: "1m-3m", label: "1M - 3M" },
-  { value: "3m-5m", label: "3M - 5M" },
-  { value: "5m-10m", label: "5M - 10M" },
-  { value: "more-10m", label: "More than 10M" },
-];
-
-const investorTypeOptions = [
-  { value: "lead", label: "Lead investor" },
-  { value: "follow-on", label: "Follow-on investors" },
-  { value: "both", label: "Both lead and follow-on" },
+// Region options
+const regionOptions = [
+  { value: "europe", label: "Europe" },
+  { value: "us", label: "US" },
+  { value: "asia", label: "Asia" },
+  { value: "africa", label: "Africa" },
+  { value: "latam", label: "Latam" },
+  { value: "middle-east", label: "Middle East" },
 ];
 
 // Investor Match Summary data
@@ -163,10 +158,12 @@ const nextSteps = [
 export default function UploadPitch() {
   // Main flow step (1-4)
   const [mainStep, setMainStep] = useState(1);
-  // Onboarding sub-step (1-4)
+  // Onboarding sub-step (1-2)
   const [onboardingStep, setOnboardingStep] = useState(1);
   // Modal open state
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(true);
+  // Processing state (between upload and confirm)
+  const [isProcessing, setIsProcessing] = useState(false);
   
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -174,16 +171,12 @@ export default function UploadPitch() {
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [overallScore, setOverallScore] = useState(0);
 
-  // Form state
-  const [experience, setExperience] = useState("");
-  const [capitalRaised, setCapitalRaised] = useState("");
+  // Form state for Confirm Data step
   const [sector, setSector] = useState("");
-  const [subSector, setSubSector] = useState("");
-  const [upcomingRound, setUpcomingRound] = useState("");
-  const [country, setCountry] = useState("");
-  const [timeline, setTimeline] = useState("");
-  const [roundSize, setRoundSize] = useState("");
-  const [investorType, setInvestorType] = useState("");
+  const [round, setRound] = useState("");
+  const [segment, setSegment] = useState("");
+  const [ask, setAsk] = useState("");
+  const [region, setRegion] = useState("");
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -215,9 +208,29 @@ export default function UploadPitch() {
     setUploadedFile(null);
   };
 
+  const processUploadAndContinue = () => {
+    if (!uploadedFile) return;
+    
+    setIsProcessing(true);
+    
+    // Simulate AI processing the pitch deck
+    setTimeout(() => {
+      // Pre-fill some fields as if extracted from pitch
+      setSector("saas");
+      setRound("seed");
+      setSegment("b2b");
+      setAsk("250k-1m");
+      setRegion("europe");
+      
+      setIsProcessing(false);
+      setOnboardingStep(2);
+    }, 2500);
+  };
+
   const startAnalysis = () => {
     setIsAnalyzing(true);
     setMainStep(2);
+    setIsOnboardingOpen(false);
     
     let progress = 0;
     const interval = setInterval(() => {
@@ -239,29 +252,24 @@ export default function UploadPitch() {
   };
 
   const goNextOnboarding = () => {
-    if (onboardingStep < 4) {
-      setOnboardingStep(onboardingStep + 1);
-    } else {
+    if (onboardingStep === 1) {
+      processUploadAndContinue();
+    } else if (onboardingStep === 2) {
       // Complete onboarding, start analysis
       startAnalysis();
     }
   };
 
-  const isStep1Valid = experience && capitalRaised;
-  const isStep2Valid = sector && upcomingRound && country;
-  const isStep3Valid = true;
-  const isStep4Valid = timeline && roundSize && investorType;
+  const isStep1Valid = uploadedFile !== null;
+  const isStep2Valid = sector && round && segment && ask && region;
 
   const canContinueOnboarding = () => {
     switch (onboardingStep) {
       case 1: return isStep1Valid;
       case 2: return isStep2Valid;
-      case 3: return isStep3Valid;
-      case 4: return isStep4Valid;
       default: return false;
     }
   };
-
 
   // Render onboarding wizard content (for modal)
   const renderOnboardingContent = () => (
@@ -272,7 +280,7 @@ export default function UploadPitch() {
           {onboardingSteps.find(s => s.id === onboardingStep)?.title}
         </h1>
         <p className="mb-4 md:mb-6 text-xs md:text-sm text-gray-400">
-          Complete all the following steps {onboardingStep}/4
+          Complete all the following steps {onboardingStep}/2
         </p>
 
         <div className="flex md:flex-col gap-2 md:gap-0 md:space-y-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
@@ -330,120 +338,26 @@ export default function UploadPitch() {
 
         {/* Step content */}
         <div className="flex-1">
-          {/* Onboarding Step 1: Founder Details */}
-          {onboardingStep === 1 && (
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <p className="text-lg text-gray-700">
-                  Which best describes your prior experience with raising venture rounds? Please do not include any prior angel rounds.
-                </p>
-                <RadioGroup value={experience} onValueChange={setExperience} className="space-y-3">
-                  {experienceOptions.map((option) => (
-                    <div key={option.value} className="flex items-center space-x-3">
-                      <RadioGroupItem value={option.value} id={option.value} className="border-gray-300" />
-                      <Label htmlFor={option.value} className="cursor-pointer text-base font-normal">
-                        {option.label}
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
+          {/* Processing/Loading State */}
+          {isProcessing && (
+            <div className="flex flex-col items-center justify-center h-full py-12">
+              <div className="relative">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
+                  <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                </div>
               </div>
-
-              <div className="space-y-3">
-                <p className="text-lg text-gray-700">
-                  How much capital have you raised to date?
-                </p>
-                <Select value={capitalRaised} onValueChange={setCapitalRaised}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {capitalRaisedOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              <h3 className="mt-6 text-xl font-semibold text-gray-900">Analyzing your pitch deck...</h3>
+              <p className="mt-2 text-gray-500 text-center max-w-sm">
+                Our AI is extracting key information from your pitch to pre-fill your startup profile.
+              </p>
             </div>
           )}
 
-          {/* Onboarding Step 2: Company Details */}
-          {onboardingStep === 2 && (
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">Sector</Label>
-                <Select value={sector} onValueChange={setSector}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sectorOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">Sub-sector (optional)</Label>
-                <Select value={subSector} onValueChange={setSubSector}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {subSectorOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">Upcoming Round</Label>
-                <Select value={upcomingRound} onValueChange={setUpcomingRound}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {roundOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">Country</Label>
-                <Select value={country} onValueChange={setCountry}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countryOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          )}
-
-          {/* Onboarding Step 3: Data Sources / Upload */}
-          {onboardingStep === 3 && (
+          {/* Onboarding Step 1: Upload Pitch */}
+          {onboardingStep === 1 && !isProcessing && (
             <div className="space-y-6">
               <div>
                 <h2 className="text-2xl font-semibold text-gray-900">Upload your pitch deck</h2>
-                <p className="mt-1 text-gray-500">If you don't have one, you can skip this step.</p>
               </div>
 
               <div className="space-y-3">
@@ -498,87 +412,122 @@ export default function UploadPitch() {
                   </div>
                 )}
               </div>
-
-              <div className="pt-4">
-                <button className="text-sm text-gray-600 underline hover:text-gray-900">
-                  I don't have a pitch deck
-                </button>
-              </div>
             </div>
           )}
 
-          {/* Onboarding Step 4: Round Dynamics */}
-          {onboardingStep === 4 && (
+          {/* Onboarding Step 2: Confirm Data */}
+          {onboardingStep === 2 && !isProcessing && (
             <div className="space-y-6">
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">When are you planning to raise your next round?</Label>
-                <Select value={timeline} onValueChange={setTimeline}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {timelineOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-900">Confirm your startup details</h2>
+                <p className="mt-1 text-gray-500">We've extracted the following information from your pitch. Please verify and adjust if needed.</p>
               </div>
 
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">What round size are you looking for?</Label>
-                <Select value={roundSize} onValueChange={setRoundSize}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {roundSizeOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">Sector</Label>
+                  <Select value={sector} onValueChange={setSector}>
+                    <SelectTrigger className="w-full border-gray-200 bg-white">
+                      <SelectValue placeholder="Select sector" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-60">
+                      {sectorOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">Are you looking for a lead or follow-on investors?</Label>
-                <Select value={investorType} onValueChange={setInvestorType}>
-                  <SelectTrigger className="w-full border-gray-200 bg-white">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {investorTypeOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">Round</Label>
+                  <Select value={round} onValueChange={setRound}>
+                    <SelectTrigger className="w-full border-gray-200 bg-white">
+                      <SelectValue placeholder="Select round" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {roundOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">Segment</Label>
+                  <Select value={segment} onValueChange={setSegment}>
+                    <SelectTrigger className="w-full border-gray-200 bg-white">
+                      <SelectValue placeholder="Select segment" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {segmentOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">Ask</Label>
+                  <Select value={ask} onValueChange={setAsk}>
+                    <SelectTrigger className="w-full border-gray-200 bg-white">
+                      <SelectValue placeholder="Select ask amount" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {askOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2 md:col-span-2">
+                  <Label className="text-sm font-medium text-gray-700">Region</Label>
+                  <Select value={region} onValueChange={setRegion}>
+                    <SelectTrigger className="w-full border-gray-200 bg-white">
+                      <SelectValue placeholder="Select region" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {regionOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
           )}
         </div>
 
         {/* Navigation buttons */}
-        <div className="mt-4 md:mt-6 flex gap-2 md:gap-3 pt-4 border-t border-gray-100">
-          <Button
-            variant="outline"
-            className="flex-1 rounded-lg h-12"
-            onClick={goBackOnboarding}
-            disabled={onboardingStep === 1}
-          >
-            Go back
-          </Button>
-          <Button
-            className="flex-1 bg-foreground text-background rounded-lg h-12 hover:bg-foreground/90"
-            onClick={goNextOnboarding}
-            disabled={!canContinueOnboarding()}
-          >
-            Continue
-          </Button>
-        </div>
+        {!isProcessing && (
+          <div className="mt-4 md:mt-6 flex gap-2 md:gap-3 pt-4 border-t border-gray-100">
+            <Button
+              variant="outline"
+              className="flex-1 rounded-lg h-12"
+              onClick={goBackOnboarding}
+              disabled={onboardingStep === 1}
+            >
+              Go back
+            </Button>
+            <Button
+              className="flex-1 bg-foreground text-background rounded-lg h-12 hover:bg-foreground/90"
+              onClick={goNextOnboarding}
+              disabled={!canContinueOnboarding()}
+            >
+              {onboardingStep === 1 ? "Continue" : "Start Analysis"}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
