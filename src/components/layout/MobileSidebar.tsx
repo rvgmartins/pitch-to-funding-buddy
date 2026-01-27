@@ -123,8 +123,8 @@ export function MobileSidebar({
                   className={cn(
                     "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                     isActive
-                      ? "bg-orange-500 text-white"
-                      : "text-sidebar-foreground/70 hover:bg-orange-500/10 hover:text-orange-500"
+                      ? "bg-foreground text-background"
+                      : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground"
                   )}
                 >
                   <item.icon className="h-5 w-5" />
@@ -137,7 +137,7 @@ export function MobileSidebar({
           {/* Add Startup Button */}
           <div className="p-4">
             <Link to="/onboarding" onClick={handleLinkClick}>
-              <Button className="w-full rounded-full font-medium bg-orange-500 hover:bg-orange-600 text-white" size="lg">
+              <Button className="w-full rounded-full font-medium" size="lg">
                 <Plus className="mr-2 h-4 w-4" />
                 New Startup
               </Button>
