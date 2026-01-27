@@ -7,7 +7,8 @@ import {
   LogOut,
   ChevronDown,
   Plus,
-  X
+  X,
+  BarChart3
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ import kloserLogo from "@/assets/klogo.png";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Deck Score", href: "/deck-score", icon: BarChart3 },
   { name: "Startup Profile", href: "/profile", icon: Building2 },
   { name: "Payments", href: "/payments", icon: CreditCard },
   { name: "Settings", href: "/settings", icon: Settings },
