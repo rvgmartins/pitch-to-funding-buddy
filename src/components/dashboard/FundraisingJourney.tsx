@@ -116,7 +116,7 @@ export function FundraisingJourney() {
               className={cn(
                 "flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full text-xs md:text-sm font-bold",
                 phase.steps.some((s) => s.completed)
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md shadow-orange-500/20"
                   : "bg-muted text-muted-foreground"
               )}
             >
