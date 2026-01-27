@@ -5,11 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { 
   Menu, 
-  User, 
   Bell, 
   Shield, 
   Eye, 
@@ -39,18 +37,6 @@ export default function Settings() {
   const [investorInterest, setInvestorInterest] = useState(true);
   const [weeklyReport, setWeeklyReport] = useState(true);
   const [productUpdates, setProductUpdates] = useState(false);
-
-  // Profile Settings
-  const [name, setName] = useState("João Silva");
-  const [email, setEmail] = useState("joao@techventure.ai");
-  const [phone, setPhone] = useState("+351 912 345 678");
-
-  const handleSaveProfile = () => {
-    toast({
-      title: "Perfil atualizado",
-      description: "As suas alterações foram guardadas com sucesso.",
-    });
-  };
 
   const handleSavePrivacy = () => {
     toast({
@@ -88,50 +74,6 @@ export default function Settings() {
           </div>
 
           <div className="space-y-6 max-w-4xl">
-            {/* Profile Settings */}
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                    <User className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle>Profile Information</CardTitle>
-                    <CardDescription>Update your personal details</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input 
-                      id="name" 
-                      value={name} 
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input 
-                      id="email" 
-                      type="email" 
-                      value={email} 
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input 
-                      id="phone" 
-                      value={phone} 
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <Button onClick={handleSaveProfile}>Save Changes</Button>
-              </CardContent>
-            </Card>
 
             {/* Privacy & Investor Sharing */}
             <Card>
