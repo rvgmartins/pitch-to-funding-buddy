@@ -255,21 +255,21 @@ export default function Register() {
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Overlay with stats */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="flex items-center justify-center gap-8 text-white">
-            <div className="text-center">
-              <p className="text-3xl font-bold">500+</p>
+            <div className="text-center group">
+              <p className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent drop-shadow-lg">500+</p>
               <p className="text-sm text-white/80">Startups</p>
             </div>
-            <div className="h-8 w-px bg-white/30" />
-            <div className="text-center">
-              <p className="text-3xl font-bold">€50M+</p>
+            <div className="h-10 w-px bg-gradient-to-b from-transparent via-orange-400/50 to-transparent" />
+            <div className="text-center group">
+              <p className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent drop-shadow-lg">€50M+</p>
               <p className="text-sm text-white/80">Raised</p>
             </div>
-            <div className="h-8 w-px bg-white/30" />
-            <div className="text-center">
-              <p className="text-3xl font-bold">200+</p>
+            <div className="h-10 w-px bg-gradient-to-b from-transparent via-orange-400/50 to-transparent" />
+            <div className="text-center group">
+              <p className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent drop-shadow-lg">200+</p>
               <p className="text-sm text-white/80">Investors</p>
             </div>
           </div>
