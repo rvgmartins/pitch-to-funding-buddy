@@ -8,7 +8,6 @@ import {
   X,
   Loader2,
   Sparkles,
-  Star,
   CreditCard,
   Lock,
   Target,
@@ -22,7 +21,8 @@ import {
   Wallet,
   Layers,
   FileText,
-  Send
+  Send,
+  Zap
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
@@ -560,13 +560,49 @@ export default function UploadPitch() {
       <div className="rounded-2xl bg-white p-6 md:p-8 shadow-lg">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
-                <Star className="h-8 w-8 text-amber-500" />
+            <div className="flex items-center gap-6 mb-4">
+              {/* Score Ring - matching DeckScore */}
+              <div className="relative">
+                <svg className="w-20 h-20 md:w-24 md:h-24 -rotate-90" viewBox="0 0 100 100">
+                  {/* Background circle */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    className="text-muted/20"
+                  />
+                  {/* Progress circle */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="url(#onboardingScoreGradient)"
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    strokeDasharray={`${overallScore * 2.64} 264`}
+                    className="transition-all duration-1000 ease-out"
+                  />
+                  <defs>
+                    <linearGradient id="onboardingScoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#f97316" />
+                      <stop offset="100%" stopColor="#fb923c" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                {/* Center icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg shadow-orange-500/30">
+                    <Zap className="h-6 w-6 md:h-7 md:w-7 text-white" />
+                  </div>
+                </div>
               </div>
               <div>
                 <p className="text-4xl md:text-5xl font-bold text-foreground">{overallScore}%</p>
-                <p className="text-lg font-medium text-amber-600">Fundable with Improvements</p>
+                <p className="text-lg font-medium text-orange-600">Fundable with Improvements</p>
               </div>
             </div>
             <p className="text-muted-foreground mt-3">
