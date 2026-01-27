@@ -100,7 +100,7 @@ export function FundraisingJourney() {
         {/* Overall Progress */}
         <div className="space-y-2">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-            <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">{overallProgress}%</span>
+            <span className="text-2xl md:text-3xl font-bold text-foreground">{overallProgress}%</span>
             <span className="text-xs md:text-sm text-muted-foreground">
               Journey Progress <span className="font-medium text-foreground">{completedSteps} of {totalSteps} steps completed</span>
             </span>
@@ -144,7 +144,8 @@ export function FundraisingJourney() {
                 key={phase.number}
                 className={cn(
                   "min-w-[280px] md:min-w-[320px] flex-shrink-0 rounded-xl shadow-card transition-shadow hover:shadow-card-hover",
-                  phase.locked && "opacity-75"
+                  phase.locked && "opacity-75",
+                  phaseProgress > 0 && !phase.locked && "border-orange-500/50"
                 )}
               >
                 <CardHeader className="pb-3">
