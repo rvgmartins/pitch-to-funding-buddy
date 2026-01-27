@@ -1,6 +1,16 @@
 import { ReactNode } from "react";
 import { AdminSidebar } from "./AdminSidebar";
-import { ShieldCheck } from "lucide-react";
+import { Bell, ShieldCheck, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -21,6 +31,51 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
               <ShieldCheck className="h-4 w-4 text-white" />
             </div>
             <span className="text-sm font-semibold text-foreground">Admin Panel</span>
+          </div>
+
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Notifications */}
+            <Button variant="ghost" size="icon" className="relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                5
+              </span>
+            </Button>
+
+            {/* Admin user menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="gap-2 px-2 sm:px-4">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-600">
+                    <User className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="hidden text-sm font-medium sm:inline-block">
+                    Admin User
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>Admin Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/settings">Edit Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/settings">Settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard" className="text-muted-foreground">
+                    Back to App
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/login" className="text-destructive">
+                    Logout
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 
