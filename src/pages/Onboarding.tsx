@@ -323,14 +323,14 @@ export default function UploadPitch() {
 
       {/* Right content area */}
       <div className="flex flex-1 flex-col bg-white p-4 md:p-6 overflow-y-auto">
-        {/* Main Progress bar - 4 main phases */}
+        {/* Progress bar - 2 onboarding steps */}
         <div className="mb-6 flex gap-2">
-          {mainSteps.map((step) => (
+          {onboardingSteps.map((step) => (
             <div
               key={step.id}
               className={cn(
                 "h-1 flex-1 rounded-full transition-all",
-                mainStep >= step.id ? "bg-foreground" : "bg-gray-200"
+                onboardingStep >= step.id ? "bg-foreground" : "bg-gray-200"
               )}
             />
           ))}
