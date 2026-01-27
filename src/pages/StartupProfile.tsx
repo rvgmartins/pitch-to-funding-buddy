@@ -49,8 +49,8 @@ export default function StartupProfile() {
           <AccordionItem value="details" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
-                <div className="stat-icon">
-                  <Building2 className="h-5 w-5 text-primary" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                  <Building2 className="h-5 w-5 text-orange-500" />
                 </div>
                 <span className="text-lg font-semibold">Company Details</span>
               </div>
@@ -166,8 +166,8 @@ export default function StartupProfile() {
           <AccordionItem value="pitch" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
-                <div className="stat-icon">
-                  <Target className="h-5 w-5 text-primary" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                  <Target className="h-5 w-5 text-orange-500" />
                 </div>
                 <span className="text-lg font-semibold">Pitch Information</span>
               </div>
@@ -231,8 +231,8 @@ export default function StartupProfile() {
           <AccordionItem value="team" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
-                <div className="stat-icon">
-                  <Users className="h-5 w-5 text-primary" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                  <Users className="h-5 w-5 text-orange-500" />
                 </div>
                 <span className="text-lg font-semibold">Team</span>
               </div>
@@ -247,7 +247,7 @@ export default function StartupProfile() {
                   <Card className="border-dashed rounded-md">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10 text-lg font-bold text-orange-500">
                           JS
                         </div>
                         <div>
@@ -261,7 +261,7 @@ export default function StartupProfile() {
                   <Card className="border-dashed rounded-md">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10 text-lg font-bold text-orange-500">
                           MC
                         </div>
                         <div>
@@ -284,8 +284,8 @@ export default function StartupProfile() {
           <AccordionItem value="traction" className="rounded-md border bg-card shadow-card">
             <AccordionTrigger className="px-6 hover:no-underline">
               <div className="flex items-center gap-3">
-                <div className="stat-icon">
-                  <TrendingUp className="h-5 w-5 text-primary" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                  <TrendingUp className="h-5 w-5 text-orange-500" />
                 </div>
                 <span className="text-lg font-semibold">Metrics & Traction</span>
               </div>
