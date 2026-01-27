@@ -26,11 +26,8 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
       <div className="lg:pl-64">
         {/* Top header */}
         <header className="sticky top-0 z-30 flex h-14 sm:h-16 items-center justify-between border-b border-border bg-background/95 px-4 sm:px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-orange-600">
-              <ShieldCheck className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-sm font-semibold text-foreground">Admin Panel</span>
+          <div className="flex items-center gap-4">
+            {/* Empty left side - title is in page content */}
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
