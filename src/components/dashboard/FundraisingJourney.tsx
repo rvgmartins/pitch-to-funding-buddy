@@ -191,7 +191,7 @@ export function FundraisingJourney() {
                   ))}
                   <div className="mt-4 flex items-center justify-between border-t pt-3">
                     <span className="text-xs text-muted-foreground">Tool stack value</span>
-                    <span className="text-sm font-bold text-orange-500">{phase.toolStackValue}</span>
+                    <span className="text-sm font-bold text-foreground">{phase.toolStackValue}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -229,7 +229,7 @@ export function FundraisingJourney() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-primary">Phase {item.phase}</span>
-                  <span className="text-sm font-bold text-orange-500">{item.value}</span>
+                  <span className="text-sm font-bold text-foreground">{item.value}</span>
                 </div>
                 <h4 className="mt-2 text-sm font-medium">{item.title}</h4>
                 <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
