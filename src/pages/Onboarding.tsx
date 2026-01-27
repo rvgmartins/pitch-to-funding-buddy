@@ -342,8 +342,8 @@ export default function UploadPitch() {
           {isProcessing && (
             <div className="flex flex-col items-center justify-center h-full py-12">
               <div className="relative">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-                  <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                  <Loader2 className="h-10 w-10 animate-spin text-orange-500" />
                 </div>
               </div>
               <h3 className="mt-6 text-xl font-semibold text-gray-900">Analyzing your pitch deck...</h3>
@@ -371,11 +371,11 @@ export default function UploadPitch() {
                     className={cn(
                       "flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-12 transition-all",
                       isDragOver
-                        ? "border-primary bg-primary/5"
-                        : "border-gray-300 hover:border-gray-400"
+                        ? "border-orange-500 bg-orange-500/5"
+                        : "border-gray-300 hover:border-orange-400"
                     )}
                   >
-                    <Upload className="mb-4 h-10 w-10 text-gray-400" />
+                    <Upload className="mb-4 h-10 w-10 text-orange-400" />
                     <p className="mb-1 text-center font-medium text-gray-700">
                       Drop File Here or Click To Upload
                     </p>
@@ -397,8 +397,8 @@ export default function UploadPitch() {
                   </div>
                 ) : (
                   <div className="flex items-center gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                      <File className="h-5 w-5 text-primary" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                      <File className="h-5 w-5 text-orange-500" />
                     </div>
                     <div className="flex-1">
                       <p className="font-medium text-gray-900">{uploadedFile.name}</p>
