@@ -31,7 +31,7 @@ export default function Register() {
       <div className="flex-1 bg-background bg-grid-pattern flex flex-col min-h-screen lg:min-h-0">
         {/* Header */}
         <header className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-          <img src={kloserLogo} alt="Kloser.ai" className="h-28 sm:h-32 md:h-40" />
+          <img src={kloserLogo} alt="Kloser.ai" className="h-10 sm:h-12 md:h-14" />
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline">Already have an account?</span>
             <Link to="/login">
