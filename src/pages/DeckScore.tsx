@@ -114,21 +114,21 @@ export default function DeckScore() {
                     />
                     <defs>
                       <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#f59e0b" />
-                        <stop offset="100%" stopColor="#eab308" />
+                        <stop offset="0%" stopColor="#f97316" />
+                        <stop offset="100%" stopColor="#fb923c" />
                       </linearGradient>
                     </defs>
                   </svg>
                   {/* Center content */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex h-16 w-16 md:h-18 md:w-18 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-amber-500 shadow-lg shadow-amber-500/30">
+                    <div className="flex h-16 w-16 md:h-18 md:w-18 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg shadow-orange-500/30">
                       <Zap className="h-8 w-8 text-white" />
                     </div>
                   </div>
                 </div>
                 <div>
                   <p className="text-5xl md:text-6xl font-bold text-foreground">{overallScore}%</p>
-                  <p className="text-lg font-medium text-amber-600">Fundable with Improvements</p>
+                  <p className="text-lg font-medium text-orange-600">Fundable with Improvements</p>
                 </div>
               </div>
               <p className="text-muted-foreground">
