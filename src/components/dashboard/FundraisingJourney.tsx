@@ -100,7 +100,7 @@ export function FundraisingJourney() {
         {/* Overall Progress */}
         <div className="space-y-2">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-            <span className="text-2xl md:text-3xl font-bold text-primary">{overallProgress}%</span>
+            <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">{overallProgress}%</span>
             <span className="text-xs md:text-sm text-muted-foreground">
               Journey Progress <span className="font-medium text-foreground">{completedSteps} of {totalSteps} steps completed</span>
             </span>
@@ -176,7 +176,7 @@ export function FundraisingJourney() {
                         className={cn(
                           "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full",
                           step.completed
-                            ? "bg-primary text-primary-foreground"
+                            ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white"
                             : "border-2 border-muted-foreground/30"
                         )}
                       >
@@ -190,7 +190,7 @@ export function FundraisingJourney() {
                   ))}
                   <div className="mt-4 flex items-center justify-between border-t pt-3">
                     <span className="text-xs text-muted-foreground">Tool stack value</span>
-                    <span className="text-sm font-bold text-primary">{phase.toolStackValue}</span>
+                    <span className="text-sm font-bold text-orange-500">{phase.toolStackValue}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -228,7 +228,7 @@ export function FundraisingJourney() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-primary">Phase {item.phase}</span>
-                  <span className="text-sm font-bold text-primary">{item.value}</span>
+                  <span className="text-sm font-bold text-orange-500">{item.value}</span>
                 </div>
                 <h4 className="mt-2 text-sm font-medium">{item.title}</h4>
                 <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
