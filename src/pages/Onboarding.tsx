@@ -779,7 +779,7 @@ export default function UploadPitch() {
                   <div
                     className={cn(
                       "flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-full transition-all",
-                      isCompleted && "bg-foreground text-background",
+                      isCompleted && "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md shadow-orange-500/20",
                       isCurrent && "bg-foreground text-background",
                       isPending && "border-2 border-muted-foreground/30 text-muted-foreground/50"
                     )}
@@ -813,7 +813,7 @@ export default function UploadPitch() {
                   <div className="relative mt-4 md:mt-6 flex-1 px-1 md:px-4">
                     <div className={cn(
                       "h-0.5 w-full",
-                      isCompleted ? "bg-foreground" : "bg-muted-foreground/20"
+                      isCompleted ? "bg-gradient-to-r from-orange-500 to-orange-600" : "bg-muted-foreground/20"
                     )} />
                   </div>
                 )}
