@@ -86,9 +86,45 @@ export default function DeckScore() {
         <div className="rounded-2xl bg-card p-6 md:p-8 shadow-lg border border-border">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="flex-1">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-amber-100">
-                  <Star className="h-10 w-10 text-amber-500" />
+              <div className="flex items-center gap-6 mb-4">
+                {/* Impactful Score Ring */}
+                <div className="relative">
+                  <svg className="w-24 h-24 md:w-28 md:h-28 -rotate-90" viewBox="0 0 100 100">
+                    {/* Background circle */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      className="text-muted/20"
+                    />
+                    {/* Progress circle */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="url(#scoreGradient)"
+                      strokeWidth="8"
+                      strokeLinecap="round"
+                      strokeDasharray={`${overallScore * 2.64} 264`}
+                      className="transition-all duration-1000 ease-out"
+                    />
+                    <defs>
+                      <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#eab308" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  {/* Center content */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex h-16 w-16 md:h-18 md:w-18 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-amber-500 shadow-lg shadow-amber-500/30">
+                      <Zap className="h-8 w-8 text-white" />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <p className="text-5xl md:text-6xl font-bold text-foreground">{overallScore}%</p>
