@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DashboardLayout } from "@/components/layout/DashboardLayout";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   Upload, 
@@ -34,30 +34,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
+import kloserLogo from "@/assets/kloser-logo-full.png";
 
 // Main flow steps
 const mainSteps = [
-  { id: 1, title: "Startup Details", description: "Complete profile" },
-  { id: 2, title: "Analysis & Scoring", description: "AI analyzing" },
-  { id: 3, title: "Review", description: "View results" },
-  { id: 4, title: "Payment", description: "Unlock access" },
-];
-
-// Onboarding sub-steps (now only 2)
-const onboardingSteps = [
-  { id: 1, title: "Upload" },
-  { id: 2, title: "Confirm Data" },
+  { id: 1, title: "Upload", description: "Upload pitch" },
+  { id: 2, title: "Confirm Data", description: "Verify details" },
+  { id: 3, title: "Analysis", description: "AI scoring" },
+  { id: 4, title: "Review", description: "View results" },
+  { id: 5, title: "Payment", description: "Unlock access" },
 ];
 
 // Sector options from the reference image
 const sectorOptions = [
   { value: "saas", label: "SAAS" },
   { value: "health-tech", label: "Health Tech" },
-  { value: "fintech", label: "FinTEch" },
+  { value: "fintech", label: "FinTech" },
   { value: "mobility", label: "Mobility" },
   { value: "energy", label: "Energy" },
   { value: "mkt-tech", label: "Mkt Tech" },
@@ -155,19 +147,16 @@ const nextSteps = [
   { icon: Send, title: "Structured Execution", description: "Access outreach templates and tracking tools" },
 ];
 
-export default function UploadPitch() {
-  // Main flow step (1-4)
-  const [mainStep, setMainStep] = useState(1);
-  // Onboarding sub-step (1-2)
-  const [onboardingStep, setOnboardingStep] = useState(1);
-  // Modal open state
-  const [isOnboardingOpen, setIsOnboardingOpen] = useState(true);
+export default function Onboarding() {
+  const navigate = useNavigate();
+  
+  // Current step (1-5)
+  const [currentStep, setCurrentStep] = useState(1);
   // Processing state (between upload and confirm)
   const [isProcessing, setIsProcessing] = useState(false);
   
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [overallScore, setOverallScore] = useState(0);
 
@@ -223,14 +212,12 @@ export default function UploadPitch() {
       setRegion("europe");
       
       setIsProcessing(false);
-      setOnboardingStep(2);
+      setCurrentStep(2);
     }, 2500);
   };
 
   const startAnalysis = () => {
-    setIsAnalyzing(true);
-    setMainStep(2);
-    setIsOnboardingOpen(false);
+    setCurrentStep(3);
     
     let progress = 0;
     const interval = setInterval(() => {
@@ -238,24 +225,27 @@ export default function UploadPitch() {
       setAnalysisProgress(progress);
       if (progress >= 100) {
         clearInterval(interval);
-        setIsAnalyzing(false);
         setOverallScore(81);
-        setMainStep(3);
+        setCurrentStep(4);
       }
     }, 500);
   };
 
-  const goBackOnboarding = () => {
-    if (onboardingStep > 1) {
-      setOnboardingStep(onboardingStep - 1);
+  const handlePaymentSuccess = () => {
+    // After payment, redirect to dashboard
+    navigate("/dashboard");
+  };
+
+  const goBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
     }
   };
 
-  const goNextOnboarding = () => {
-    if (onboardingStep === 1) {
+  const goNext = () => {
+    if (currentStep === 1) {
       processUploadAndContinue();
-    } else if (onboardingStep === 2) {
-      // Complete onboarding, start analysis
+    } else if (currentStep === 2) {
       startAnalysis();
     }
   };
@@ -263,308 +253,310 @@ export default function UploadPitch() {
   const isStep1Valid = uploadedFile !== null;
   const isStep2Valid = sector && round && segment && ask && region;
 
-  const canContinueOnboarding = () => {
-    switch (onboardingStep) {
+  const canContinue = () => {
+    switch (currentStep) {
       case 1: return isStep1Valid;
       case 2: return isStep2Valid;
       default: return false;
     }
   };
 
-  // Render onboarding wizard content (for modal)
-  const renderOnboardingContent = () => (
-    <div className="flex flex-col md:flex-row h-[90vh] md:h-[80vh] max-h-[700px] w-full overflow-visible rounded-lg shadow-2xl">
-      {/* Left sidebar - Steps */}
-      <div className="w-full md:w-72 shrink-0 bg-foreground p-4 md:p-6 text-background flex flex-col">
-        <h1 className="mb-1 text-xl md:text-2xl font-bold">
-          {onboardingSteps.find(s => s.id === onboardingStep)?.title}
-        </h1>
-        <p className="mb-4 md:mb-6 text-xs md:text-sm text-gray-400">
-          Complete all the following steps {onboardingStep}/2
-        </p>
+  // Progress stepper component
+  const renderProgressStepper = () => (
+    <div className="mb-8">
+      <div className="flex items-center justify-between max-w-3xl mx-auto">
+        {mainSteps.map((step, index) => {
+          const isCompleted = currentStep > step.id;
+          const isCurrent = currentStep === step.id;
+          const isPending = currentStep < step.id;
 
-        <div className="flex md:flex-col gap-2 md:gap-0 md:space-y-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
-          {onboardingSteps.map((step) => (
-            <div
-              key={step.id}
-              className={cn(
-                "flex items-center gap-2 md:gap-3 rounded-lg px-2 md:px-3 py-2 md:py-2.5 transition-all whitespace-nowrap",
-                onboardingStep === step.id && "bg-white/10"
-              )}
-            >
-              <div
-                className={cn(
-                  "flex h-6 w-6 md:h-8 md:w-8 items-center justify-center rounded-full border-2 transition-all text-xs md:text-sm flex-shrink-0",
-                  onboardingStep > step.id
-                    ? "border-white bg-transparent"
-                    : onboardingStep === step.id
-                    ? "border-white bg-white text-foreground"
-                    : "border-gray-500 text-gray-500"
-                )}
-              >
-                {onboardingStep > step.id ? (
-                  <Check className="h-3 w-3 md:h-4 md:w-4" />
-                ) : (
-                  <span className="font-semibold">{step.id}</span>
-                )}
-              </div>
-              <span
-                className={cn(
-                  "text-xs md:text-sm font-medium hidden md:inline",
-                  onboardingStep >= step.id ? "text-white" : "text-gray-500"
-                )}
-              >
-                {step.title}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Right content area */}
-      <div className="flex flex-1 flex-col bg-white p-4 md:p-6 overflow-y-auto">
-        {/* Progress bar - 2 onboarding steps */}
-        <div className="mb-6 flex gap-2">
-          {onboardingSteps.map((step) => (
-            <div
-              key={step.id}
-              className={cn(
-                "h-1 flex-1 rounded-full transition-all",
-                onboardingStep >= step.id ? "bg-foreground" : "bg-gray-200"
-              )}
-            />
-          ))}
-        </div>
-
-        {/* Step content */}
-        <div className="flex-1">
-          {/* Processing/Loading State */}
-          {isProcessing && (
-            <div className="flex flex-col items-center justify-center h-full py-12">
-              <div className="relative">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
-                  <Loader2 className="h-10 w-10 animate-spin text-orange-500" />
+          return (
+            <div key={step.id} className="flex flex-1 items-center">
+              {/* Step circle and content */}
+              <div className="flex flex-col items-center">
+                {/* Circle */}
+                <div
+                  className={cn(
+                    "flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full transition-all text-sm",
+                    isCompleted && "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md shadow-orange-500/20",
+                    isCurrent && "bg-foreground text-background",
+                    isPending && "border-2 border-muted-foreground/30 text-muted-foreground/50"
+                  )}
+                >
+                  {isCompleted ? (
+                    <Check className="h-4 w-4" strokeWidth={2.5} />
+                  ) : (
+                    <span className="font-medium">{step.id}</span>
+                  )}
                 </div>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-gray-900">Analyzing your pitch deck...</h3>
-              <p className="mt-2 text-gray-500 text-center max-w-sm">
-                Our AI is extracting key information from your pitch to pre-fill your startup profile.
-              </p>
-            </div>
-          )}
-
-          {/* Onboarding Step 1: Upload Pitch */}
-          {onboardingStep === 1 && !isProcessing && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-semibold text-gray-900">Upload your pitch deck</h2>
-              </div>
-
-              <div className="space-y-3">
-                <Label className="text-base text-gray-700">Upload Pitch Deck (PDF, PowerPoint)</Label>
                 
-                {!uploadedFile ? (
-                  <div
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                    className={cn(
-                      "flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-12 transition-all",
-                      isDragOver
-                        ? "border-orange-500 bg-orange-500/5"
-                        : "border-gray-300 hover:border-orange-400"
-                    )}
-                  >
-                    <Upload className="mb-4 h-10 w-10 text-orange-400" />
-                    <p className="mb-1 text-center font-medium text-gray-700">
-                      Drop File Here or Click To Upload
-                    </p>
-                    <p className="mb-4 text-sm text-gray-500">
-                      Supported: PDF, PPT, PPTX
-                    </p>
-                    <input
-                      type="file"
-                      accept=".pdf,.ppt,.pptx"
-                      onChange={handleFileSelect}
-                      className="hidden"
-                      id="pitch-upload"
-                    />
-                    <label htmlFor="pitch-upload">
-                      <Button variant="outline" className="cursor-pointer border-gray-300" asChild>
-                        <span>Choose File</span>
-                      </Button>
-                    </label>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500/10 to-orange-600/10">
-                      <File className="h-5 w-5 text-orange-500" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-gray-900">{uploadedFile.name}</p>
-                      <p className="text-sm text-gray-500">
-                        {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
-                      </p>
-                    </div>
-                    <Button variant="ghost" size="icon" onClick={removeFile}>
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                )}
+                {/* Labels */}
+                <div className="mt-2 text-center">
+                  <p className={cn(
+                    "text-xs font-medium leading-tight hidden sm:block",
+                    (isCompleted || isCurrent) ? "text-foreground" : "text-muted-foreground/50"
+                  )}>
+                    {step.title}
+                  </p>
+                </div>
               </div>
+
+              {/* Connector line */}
+              {index < mainSteps.length - 1 && (
+                <div className="relative flex-1 px-2 md:px-4 mt-[-20px]">
+                  <div className={cn(
+                    "h-0.5 w-full",
+                    isCompleted ? "bg-gradient-to-r from-orange-500 to-orange-600" : "bg-muted-foreground/20"
+                  )} />
+                </div>
+              )}
             </div>
-          )}
-
-          {/* Onboarding Step 2: Confirm Data */}
-          {onboardingStep === 2 && !isProcessing && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-semibold text-gray-900">Confirm your startup details</h2>
-                <p className="mt-1 text-gray-500">We've extracted the following information from your pitch. Please verify and adjust if needed.</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-gray-700">Sector</Label>
-                  <Select value={sector} onValueChange={setSector}>
-                    <SelectTrigger className="w-full border-gray-200 bg-white">
-                      <SelectValue placeholder="Select sector" />
-                    </SelectTrigger>
-                    <SelectContent className="max-h-60">
-                      {sectorOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-gray-700">Round</Label>
-                  <Select value={round} onValueChange={setRound}>
-                    <SelectTrigger className="w-full border-gray-200 bg-white">
-                      <SelectValue placeholder="Select round" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {roundOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-gray-700">Segment</Label>
-                  <Select value={segment} onValueChange={setSegment}>
-                    <SelectTrigger className="w-full border-gray-200 bg-white">
-                      <SelectValue placeholder="Select segment" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {segmentOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-gray-700">Ask</Label>
-                  <Select value={ask} onValueChange={setAsk}>
-                    <SelectTrigger className="w-full border-gray-200 bg-white">
-                      <SelectValue placeholder="Select ask amount" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {askOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2 md:col-span-2">
-                  <Label className="text-sm font-medium text-gray-700">Region</Label>
-                  <Select value={region} onValueChange={setRegion}>
-                    <SelectTrigger className="w-full border-gray-200 bg-white">
-                      <SelectValue placeholder="Select region" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {regionOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Navigation buttons */}
-        {!isProcessing && (
-          <div className="mt-4 md:mt-6 flex gap-2 md:gap-3 pt-4 border-t border-gray-100">
-            <Button
-              variant="outline"
-              className="flex-1 rounded-lg h-12"
-              onClick={goBackOnboarding}
-              disabled={onboardingStep === 1}
-            >
-              Go back
-            </Button>
-            <Button
-              className="flex-1 bg-foreground text-background rounded-lg h-12 hover:bg-foreground/90"
-              onClick={goNextOnboarding}
-              disabled={!canContinueOnboarding()}
-            >
-              {onboardingStep === 1 ? "Continue" : "Start Analysis"}
-            </Button>
-          </div>
-        )}
+          );
+        })}
       </div>
     </div>
   );
 
-  // Render Analysis step (main step 2)
-  const renderAnalysis = () => (
-    <div className="mx-auto max-w-2xl rounded-2xl bg-white p-12 shadow-lg">
-      <div className="space-y-6 py-8 text-center">
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+  // Step 1: Upload
+  const renderUploadStep = () => (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold text-gray-900">Upload your pitch deck</h2>
+          <p className="mt-1 text-gray-500">Upload your pitch deck and our AI will analyze it</p>
         </div>
-        <div>
-          <h3 className="text-xl font-semibold">Analyzing and scoring your pitch...</h3>
-          <p className="mt-2 text-gray-500">
-            Our AI is extracting information and calculating your pitch score
+
+        <div className="space-y-4">
+          <Label className="text-base text-gray-700">Pitch Deck (PDF, PowerPoint)</Label>
+          
+          {!uploadedFile ? (
+            <div
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={cn(
+                "flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-12 transition-all cursor-pointer",
+                isDragOver
+                  ? "border-orange-500 bg-orange-500/5"
+                  : "border-gray-300 hover:border-orange-400"
+              )}
+              onClick={() => document.getElementById('pitch-upload')?.click()}
+            >
+              <Upload className="mb-4 h-12 w-12 text-orange-400" />
+              <p className="mb-1 text-center font-medium text-gray-700">
+                Drop File Here or Click To Upload
+              </p>
+              <p className="mb-4 text-sm text-gray-500">
+                Supported: PDF, PPT, PPTX
+              </p>
+              <input
+                type="file"
+                accept=".pdf,.ppt,.pptx"
+                onChange={handleFileSelect}
+                className="hidden"
+                id="pitch-upload"
+              />
+              <Button variant="outline" className="border-gray-300">
+                Choose File
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+                <File className="h-6 w-6 text-orange-500" />
+              </div>
+              <div className="flex-1">
+                <p className="font-medium text-gray-900">{uploadedFile.name}</p>
+                <p className="text-sm text-gray-500">
+                  {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                </p>
+              </div>
+              <Button variant="ghost" size="icon" onClick={removeFile}>
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8 flex gap-3">
+          <Button
+            className="flex-1 bg-foreground text-background rounded-lg h-12 hover:bg-foreground/90"
+            onClick={goNext}
+            disabled={!canContinue()}
+          >
+            Continue
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Processing state
+  const renderProcessing = () => (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+        <div className="flex flex-col items-center justify-center py-8">
+          <div className="relative">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
+              <Loader2 className="h-10 w-10 animate-spin text-orange-500" />
+            </div>
+          </div>
+          <h3 className="mt-6 text-xl font-semibold text-gray-900">Analyzing your pitch deck...</h3>
+          <p className="mt-2 text-gray-500 text-center max-w-sm">
+            Our AI is extracting key information from your pitch to pre-fill your startup profile.
           </p>
         </div>
-        <div className="mx-auto max-w-md space-y-2">
-          <Progress value={analysisProgress} className="h-2" />
-          <p className="text-sm text-gray-500">{analysisProgress}% complete</p>
+      </div>
+    </div>
+  );
+
+  // Step 2: Confirm Data
+  const renderConfirmDataStep = () => (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold text-gray-900">Confirm your startup details</h2>
+          <p className="mt-1 text-gray-500">We've extracted the following information from your pitch. Please verify and adjust if needed.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-gray-700">Sector</Label>
+            <Select value={sector} onValueChange={setSector}>
+              <SelectTrigger className="w-full border-gray-200 bg-white">
+                <SelectValue placeholder="Select sector" />
+              </SelectTrigger>
+              <SelectContent className="max-h-60">
+                {sectorOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-gray-700">Round</Label>
+            <Select value={round} onValueChange={setRound}>
+              <SelectTrigger className="w-full border-gray-200 bg-white">
+                <SelectValue placeholder="Select round" />
+              </SelectTrigger>
+              <SelectContent>
+                {roundOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-gray-700">Segment</Label>
+            <Select value={segment} onValueChange={setSegment}>
+              <SelectTrigger className="w-full border-gray-200 bg-white">
+                <SelectValue placeholder="Select segment" />
+              </SelectTrigger>
+              <SelectContent>
+                {segmentOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-gray-700">Ask</Label>
+            <Select value={ask} onValueChange={setAsk}>
+              <SelectTrigger className="w-full border-gray-200 bg-white">
+                <SelectValue placeholder="Select ask amount" />
+              </SelectTrigger>
+              <SelectContent>
+                {askOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <Label className="text-sm font-medium text-gray-700">Region</Label>
+            <Select value={region} onValueChange={setRegion}>
+              <SelectTrigger className="w-full border-gray-200 bg-white">
+                <SelectValue placeholder="Select region" />
+              </SelectTrigger>
+              <SelectContent>
+                {regionOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <div className="mt-8 flex gap-3">
+          <Button
+            variant="outline"
+            className="flex-1 rounded-lg h-12"
+            onClick={goBack}
+          >
+            Go back
+          </Button>
+          <Button
+            className="flex-1 bg-foreground text-background rounded-lg h-12 hover:bg-foreground/90"
+            onClick={goNext}
+            disabled={!canContinue()}
+          >
+            Start Analysis
+            <Sparkles className="ml-2 h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>
   );
 
-  // Render Review step (main step 3)
-  const renderReview = () => (
-    <div className="mx-auto max-w-4xl space-y-6">
+  // Step 3: Analysis
+  const renderAnalysisStep = () => (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+        <div className="space-y-6 py-8 text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
+            <Loader2 className="h-10 w-10 animate-spin text-primary" />
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold">Analyzing and scoring your pitch...</h3>
+            <p className="mt-2 text-gray-500">
+              Our AI is extracting information and calculating your pitch score
+            </p>
+          </div>
+          <div className="mx-auto max-w-md space-y-2">
+            <Progress value={analysisProgress} className="h-2" />
+            <p className="text-sm text-gray-500">{analysisProgress}% complete</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Step 4: Review
+  const renderReviewStep = () => (
+    <div className="max-w-4xl mx-auto space-y-6">
       {/* Overall Score Card */}
       <div className="rounded-2xl bg-white p-6 md:p-8 shadow-lg">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-6 mb-4">
-              {/* Score Ring - matching DeckScore */}
+              {/* Score Ring */}
               <div className="relative">
                 <svg className="w-20 h-20 md:w-24 md:h-24 -rotate-90" viewBox="0 0 100 100">
-                  {/* Background circle */}
                   <circle
                     cx="50"
                     cy="50"
@@ -574,7 +566,6 @@ export default function UploadPitch() {
                     strokeWidth="8"
                     className="text-muted/20"
                   />
-                  {/* Progress circle */}
                   <circle
                     cx="50"
                     cy="50"
@@ -593,7 +584,6 @@ export default function UploadPitch() {
                     </linearGradient>
                   </defs>
                 </svg>
-                {/* Center icon */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg shadow-orange-500/30">
                     <Zap className="h-6 w-6 md:h-7 md:w-7 text-white" />
@@ -732,7 +722,7 @@ export default function UploadPitch() {
         <Button 
           size="lg"
           className="bg-background text-foreground hover:bg-background/90 px-8 py-6 text-base"
-          onClick={() => setMainStep(4)}
+          onClick={() => setCurrentStep(5)}
         >
           <CreditCard className="mr-2 h-5 w-5" />
           Unlock Full Access
@@ -742,140 +732,92 @@ export default function UploadPitch() {
     </div>
   );
 
-  // Render Payment step (main step 4)
-  const renderPayment = () => (
-    <div className="mx-auto max-w-lg rounded-2xl bg-white p-8 shadow-lg">
-      <div className="space-y-6">
-        <div className="rounded-xl border-2 border-primary bg-gradient-to-br from-primary/5 to-primary/10 p-6">
-          <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-xl font-bold">Pro Plan</h3>
-            <span className="rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
-              Popular
-            </span>
+  // Step 5: Payment
+  const renderPaymentStep = () => (
+    <div className="max-w-lg mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="space-y-6">
+          <div className="rounded-xl border-2 border-primary bg-gradient-to-br from-primary/5 to-primary/10 p-6">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-xl font-bold">Pro Plan</h3>
+              <span className="rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
+                Popular
+              </span>
+            </div>
+            <div className="mb-4">
+              <span className="text-4xl font-bold">€99</span>
+              <span className="text-gray-500">/pitch</span>
+            </div>
+            <ul className="mb-6 space-y-3">
+              <li className="flex items-center gap-2 text-sm">
+                <Check className="h-4 w-4 text-green-600" />
+                Complete pitch analysis
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <Check className="h-4 w-4 text-green-600" />
+                All metrics unlocked
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <Check className="h-4 w-4 text-green-600" />
+                Investor matching
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <Check className="h-4 w-4 text-green-600" />
+                AI improvement suggestions
+              </li>
+              <li className="flex items-center gap-2 text-sm">
+                <Check className="h-4 w-4 text-green-600" />
+                Priority support
+              </li>
+            </ul>
+            <Button 
+              className="w-full bg-foreground text-background py-6 text-base hover:bg-foreground/90"
+              onClick={handlePaymentSuccess}
+            >
+              <CreditCard className="mr-2 h-4 w-4" />
+              Pay €99 and Unlock
+            </Button>
+            <p className="mt-3 text-center text-xs text-gray-500">
+              Secure payment via Stripe
+            </p>
           </div>
-          <div className="mb-4">
-            <span className="text-4xl font-bold">€99</span>
-            <span className="text-gray-500">/pitch</span>
+
+          <div className="text-center">
+            <Button variant="ghost" onClick={() => setCurrentStep(4)}>
+              ← Back to results
+            </Button>
           </div>
-          <ul className="mb-6 space-y-3">
-            <li className="flex items-center gap-2 text-sm">
-              <Check className="h-4 w-4 text-green-600" />
-              Complete pitch analysis
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <Check className="h-4 w-4 text-green-600" />
-              All metrics unlocked
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <Check className="h-4 w-4 text-green-600" />
-              Investor matching
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <Check className="h-4 w-4 text-green-600" />
-              AI improvement suggestions
-            </li>
-            <li className="flex items-center gap-2 text-sm">
-              <Check className="h-4 w-4 text-green-600" />
-              Priority support
-            </li>
-          </ul>
-          <Button className="w-full bg-foreground text-background py-6 text-base hover:bg-foreground/90">
-            <CreditCard className="mr-2 h-4 w-4" />
-            Pay €99 and Unlock
-          </Button>
-          <p className="mt-3 text-center text-xs text-gray-500">
-            Secure payment via Stripe
-          </p>
-        </div>
-
-        <div className="text-center">
-          <Button variant="ghost" onClick={() => setMainStep(3)}>
-            ← Back to results
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-
-  // Progress stepper component matching design
-  const renderMainProgressStepper = () => (
-    <div className="mb-6 md:mb-12 px-2 md:px-4">
-      <div className="mx-auto max-w-4xl">
-        <div className="flex items-start justify-between gap-1 md:gap-0">
-          {mainSteps.map((step, index) => {
-            const isCompleted = mainStep > step.id;
-            const isCurrent = mainStep === step.id;
-            const isPending = mainStep < step.id;
-
-            return (
-              <div key={step.id} className="flex flex-1 items-start">
-                {/* Step circle and content */}
-                <div className="flex flex-col items-center">
-                  {/* Circle */}
-                  <div
-                    className={cn(
-                      "flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-full transition-all",
-                      isCompleted && "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md shadow-orange-500/20",
-                      isCurrent && "bg-foreground text-background",
-                      isPending && "border-2 border-muted-foreground/30 text-muted-foreground/50"
-                    )}
-                  >
-                    {isCompleted ? (
-                      <Check className="h-4 w-4 md:h-5 md:w-5" strokeWidth={2.5} />
-                    ) : (
-                      <span className="text-xs md:text-base font-medium">{step.id}</span>
-                    )}
-                  </div>
-                  
-                  {/* Labels */}
-                  <div className="mt-2 md:mt-3 text-center">
-                    <p className={cn(
-                      "text-[10px] md:text-sm font-medium leading-tight",
-                      (isCompleted || isCurrent) ? "text-foreground" : "text-muted-foreground/50"
-                    )}>
-                      {step.title}
-                    </p>
-                    <p className={cn(
-                      "text-[9px] md:text-xs hidden sm:block",
-                      (isCompleted || isCurrent) ? "text-muted-foreground" : "text-muted-foreground/40"
-                    )}>
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Connector line */}
-                {index < mainSteps.length - 1 && (
-                  <div className="relative mt-4 md:mt-6 flex-1 px-1 md:px-4">
-                    <div className={cn(
-                      "h-0.5 w-full",
-                      isCompleted ? "bg-gradient-to-r from-orange-500 to-orange-600" : "bg-muted-foreground/20"
-                    )} />
-                  </div>
-                )}
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>
   );
 
   return (
-    <DashboardLayout title="Startup Onboarding" breadcrumb="Onboarding">
-      {/* Main Progress Steps - always visible */}
-      {renderMainProgressStepper()}
-      
-      {/* Onboarding Modal with blur backdrop */}
-      <Dialog open={isOnboardingOpen && mainStep === 1} onOpenChange={setIsOnboardingOpen}>
-        <DialogContent className="max-w-[95vw] md:max-w-[900px] w-full border-0 p-0 gap-0 overflow-visible bg-transparent shadow-none [&>button]:hidden">
-          {renderOnboardingContent()}
-        </DialogContent>
-      </Dialog>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-center">
+            <img src={kloserLogo} alt="Kloser.ai" className="h-10 w-auto" />
+          </div>
+        </div>
+      </header>
 
-      {mainStep === 2 && renderAnalysis()}
-      {mainStep === 3 && renderReview()}
-      {mainStep === 4 && renderPayment()}
-    </DashboardLayout>
+      {/* Main content */}
+      <main className="py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Progress stepper */}
+          {renderProgressStepper()}
+
+          {/* Step content */}
+          {isProcessing && renderProcessing()}
+          {!isProcessing && currentStep === 1 && renderUploadStep()}
+          {!isProcessing && currentStep === 2 && renderConfirmDataStep()}
+          {currentStep === 3 && renderAnalysisStep()}
+          {currentStep === 4 && renderReviewStep()}
+          {currentStep === 5 && renderPaymentStep()}
+        </div>
+      </main>
+    </div>
   );
 }
